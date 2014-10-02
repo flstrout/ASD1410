@@ -103,3 +103,63 @@ Command-line arguments:  -os macosx -ws cocoa -arch x86 -keyring /Users/fredstro
 !MESSAGE Cannot bind to an undefined command: plug-in='com.appcelerator.titanium.android.ui', id='com.appcelerator.titanium.mobile.command.run_on_device.android'
 !SUBENTRY 1 org.eclipse.ui 2 0 2014-10-02 08:34:08.929
 !MESSAGE Cannot bind to an undefined command: plug-in='com.appcelerator.titanium.android.ui', id='com.appcelerator.titanium.mobile.command.debug_on_device.android'
+
+!ENTRY com.aptana.core 4 128 2014-10-02 10:43:02.783
+!MESSAGE ERROR: Repository not found.
+fatal: Could not read from remote repository.
+
+Please make sure you have the correct access rights
+and the repository exists.
+
+!ENTRY com.aptana.core 4 1 2014-10-02 10:49:24.601
+!MESSAGE To git@github.com:flstrout/ASD1410.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:flstrout/ASD1410.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+!ENTRY com.aptana.core 4 1 2014-10-02 10:52:06.731
+!MESSAGE To git@github.com:flstrout/ASD1410.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:flstrout/ASD1410.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+!ENTRY com.aptana.core 4 1 2014-10-02 11:03:12.162
+!MESSAGE To git@github.com:flstrout/ASD1410.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'git@github.com:flstrout/ASD1410.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+!ENTRY org.eclipse.core.jobs 4 2 2014-10-02 11:05:37.398
+!MESSAGE An internal error occurred during: "Sending Analytics Ping ...".
+!STACK 0
+java.lang.NullPointerException
+	at com.aptana.usage.internal.DefaultAnalyticsEventHandler.getAnalyticsLogger(DefaultAnalyticsEventHandler.java:207)
+	at com.aptana.usage.internal.DefaultAnalyticsEventHandler.sendEventSync(DefaultAnalyticsEventHandler.java:241)
+	at com.aptana.usage.internal.DefaultAnalyticsEventHandler$1.run(DefaultAnalyticsEventHandler.java:75)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
+!SESSION 2014-10-02 13:10:33.272 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_65
+java.vendor=Apple Inc.
+BootLoader constants: OS=macosx, ARCH=x86, WS=cocoa, NL=en_US
+Framework arguments:  -keyring /Users/fredstrout/.eclipse_keyring -showlocation
+Command-line arguments:  -os macosx -ws cocoa -arch x86 -keyring /Users/fredstrout/.eclipse_keyring -consoleLog -showlocation
+
+!ENTRY org.eclipse.core.net 1 0 2014-10-02 13:10:38.758
+!MESSAGE System property http.nonProxyHosts has been set to local|*.local|169.254/16|*.169.254/16 by an external source. This value will be overwritten using the values from the preferences
+
+!ENTRY org.eclipse.ui 2 0 2014-10-02 13:10:38.894
+!MESSAGE Warnings while parsing the images from the 'org.eclipse.ui.commandImages' extension point.
+!SUBENTRY 1 org.eclipse.ui 2 0 2014-10-02 13:10:38.894
+!MESSAGE Cannot bind to an undefined command: plug-in='com.appcelerator.titanium.android.ui', id='com.appcelerator.titanium.mobile.command.run_on_device.android'
+!SUBENTRY 1 org.eclipse.ui 2 0 2014-10-02 13:10:38.894
+!MESSAGE Cannot bind to an undefined command: plug-in='com.appcelerator.titanium.android.ui', id='com.appcelerator.titanium.mobile.command.debug_on_device.android'

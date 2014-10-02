@@ -8,9 +8,5 @@ var mainWindow = Titanium.UI.createWindow({
     backgroundColor:'#ccc'
 });
 
-var navWindow = Ti.UI.iOS.createNavigationWindow({
-	window: mainWindow
-});
-
 var loadObjects = require("object");
-navWindow.open();
+mainWindow.open();

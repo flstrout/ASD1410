@@ -5,8 +5,7 @@
 
 // Global Variables
 var results = "";
-var sizeFont = 12;
-var buttonWidth = "43%";
+sizeFont = 12;
 
 // Code for the Event Listener
 var openAlert = function(){
@@ -199,7 +198,7 @@ var button1 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: 35,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	left: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",
@@ -213,7 +212,7 @@ var button2 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: button1.top + 55,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	left: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",
@@ -227,7 +226,7 @@ var button3 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: button2.top + 55,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	left: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",
@@ -241,7 +240,7 @@ var button4 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: button3.top + 55,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	left: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",
@@ -255,7 +254,7 @@ var button5 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: button4.top + 55,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	left: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",
@@ -269,7 +268,7 @@ var button6 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: 35,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	right: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",
@@ -283,7 +282,7 @@ var button7 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: button1.top + 55,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	right: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",
@@ -297,7 +296,7 @@ var button8 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: button2.top + 55,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	right: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",
@@ -311,7 +310,7 @@ var button9 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: button3.top + 55,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	right: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",
@@ -325,7 +324,7 @@ var button10 = Ti.UI.createLabel({
 	font: {fontSize: sizeFont},
 	top: button4.top + 55,
 	height: 40,
-	width: buttonWidth,
+	width: "45%",
 	right: 15,
 	backgroundColor: "#fff",
 	borderColor: "#222",

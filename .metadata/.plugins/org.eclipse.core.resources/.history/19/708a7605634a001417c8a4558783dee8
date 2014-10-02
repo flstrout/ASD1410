@@ -8,13 +8,14 @@ var mainWindow = Titanium.UI.createWindow({
     backgroundColor:'#fff'
 });
 
-var label = Titanium.UI.createLabel({
+/*var label = Titanium.UI.createLabel({
 	color:'#999',
-	text:'I am Window 2',
+	text:'I am Window',
 	font:{fontSize:20,fontFamily:'Helvetica Neue'},
 	textAlign:'center',
 	width:'auto'
-});
+});*/
 
-mainWindow.add(label);
+var loadObjects = require("object");
+// mainWindow.add(label);
 mainWindow.open();

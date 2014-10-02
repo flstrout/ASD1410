@@ -6,7 +6,7 @@
 // Global Variables
 var results = "";
 var sizeFont = 12;
-var buttonWidth = "43%";
+var buttonWidth = "40%";
 
 // Code for the Event Listener
 var openAlert = function(){
