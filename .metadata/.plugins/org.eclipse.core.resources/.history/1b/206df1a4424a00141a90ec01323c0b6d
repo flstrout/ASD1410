@@ -1,0 +1,39 @@
+// Fred L. Strout
+// Objects Project
+// ASD - 1410
+// 10/2/2014
+
+var msg1 = "This Information will NOT show in the startup Opportunity List.";
+var msg2 = "This information will show in the startup Opportunity List.";
+
+var mainWindow = Titanium.UI.createWindow({  
+    title:'Tab 1',
+    backgroundColor:'#fff'
+});
+
+var customer1 = {
+	"name": "Ronald Randle",
+	"opportunity": "McDouble was made wrong",
+	"promise": "replace the McDouble",
+	"fixed":"no",
+	"display" : function (){
+		if(this.fixed === "no"){
+		msg1;
+		};
+		msg2;
+	},	
+	"oppInfo": "me " + this.name
+};
+
+console.log(customer1.display);
+
+var label = Titanium.UI.createLabel({
+	color:'#999',
+	text:'I am Window',
+	font:{fontSize:20,fontFamily:'Helvetica Neue'},
+	textAlign:'center',
+	width:'auto'
+});
+
+mainWindow.add(label);
+mainWindow.open();

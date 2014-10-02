@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="com.appcelerator.titanium.mobile.ui.ios.installer.launchConfigurationType">
+<booleanAttribute key="ATTR_MINIFY" value="true"/>
+<stringAttribute key="ATTR_PROJECT_NAME" value="StroutFred_PMA3_1410_Objects"/>
+<stringAttribute key="appid" value="com.StroutFred.Objects"/>
+<stringAttribute key="debug_config" value="::1412255141845:192.168.1.137"/>
+<stringAttribute key="debug_hosts" value="192.168.1.137"/>
+<stringAttribute key="device_id" value="itunes"/>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+<listEntry value="/StroutFred_PMA3_1410_Objects"/>
+</listAttribute>
+<listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+<listEntry value="4"/>
+</listAttribute>
+<booleanAttribute key="org.eclipse.debug.core.capture_output" value="true"/>
+<stringAttribute key="process_factory_id" value="com.appcelerator.titanium.ui.logLevelFilteringProcessFactory"/>
+<stringAttribute key="sdk_version" value="7.1"/>
+</launchConfiguration>
