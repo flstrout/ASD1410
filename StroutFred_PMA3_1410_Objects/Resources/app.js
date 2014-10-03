@@ -5,12 +5,13 @@
 
 var mainWindow = Titanium.UI.createWindow({  
     title: "Objects",
-    backgroundColor:'#ccc'
+    backgroundColor:'#ccc',
+    layout: "vertical"
 });
 
-var navWindow = Ti.UI.iOS.createNavigationWindow({
+/*var navWindow = Ti.UI.iOS.createNavigationWindow({
 	window: mainWindow
-});
+});*/
 
 var loadObjects = require("object");
-navWindow.open();
+mainWindow.open();

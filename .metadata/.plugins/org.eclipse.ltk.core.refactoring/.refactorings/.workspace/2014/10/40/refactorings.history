@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;StroutFred_PMA3_1410_Objects/Resources/ui.js&apos;" deleteContents="false" description="Delete resource &apos;StroutFred_PMA3_1410_Objects/Resources/ui.js&apos;" element1="/StroutFred_PMA3_1410_Objects/Resources/ui.js" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1412339377825"/>
+</session>
