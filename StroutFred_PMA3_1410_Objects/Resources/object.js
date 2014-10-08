@@ -82,7 +82,7 @@ var customer3 = {
 		};
 	},	
 	"oppInfo": function(name1, opportunity1, promise1){
-		customer1.display(customer1.fixed);
+		customer3.display(customer3.fixed);
 		alert("The customers name is "+ name1 + ".\n\nTheir " + opportunity1 + ".\n\nWe promised to " + promise1 + ".\n\n" + results);
 	}
 };
@@ -100,7 +100,7 @@ var customer4 = {
 		};
 	},	
 	"oppInfo": function(name1, opportunity1, promise1){
-		customer1.display(customer1.fixed);
+		customer4.display(customer4.fixed);
 		alert("The customers name is "+ name1 + ".\n\nTheir " + opportunity1 + ".\n\nWe promised to " + promise1 + ".\n\n" + results);
 	}
 };
@@ -119,7 +119,7 @@ var customer5 = new Object();
 		};
 	};
 	customer5.oppInfo = function(name1, opportunity1, promise1){
-		customer1.display(customer1.fixed);
+		customer5.display(customer5.fixed);
 		alert("The customers name is "+ name1 + ".\n\nTheir " + opportunity1 + ".\n\nWe promised to " + promise1 + ".\n\n" + results);
 	};
 
@@ -136,7 +136,7 @@ var customer6 = new Object();
 		};
 	};
 	customer6.oppInfo = function(name1, opportunity1, promise1){
-		customer1.display(customer1.fixed);
+		customer6.display(customer6.fixed);
 		alert("The customers name is "+ name1 + ".\n\nTheir " + opportunity1 + ".\n\nWe promised to " + promise1 + ".\n\n" + results);
 	};
 	
@@ -153,7 +153,7 @@ var customer7 = new Object();
 		};
 	};
 	customer7.oppInfo = function(name1, opportunity1, promise1){
-		customer1.display(customer1.fixed);
+		customer7.display(customer7.fixed);
 		alert("The customers name is "+ name1 + ".\n\nTheir " + opportunity1 + ".\n\nWe promised to " + promise1 + ".\n\n" + results);
 	};
 	
@@ -170,7 +170,7 @@ var customer8 = new Object();
 		};
 	};
 	customer8.oppInfo = function(name1, opportunity1, promise1){
-		customer1.display(customer1.fixed);
+		customer8.display(customer8.fixed);
 		alert("The customers name is "+ name1 + ".\n\nTheir " + opportunity1 + ".\n\nWe promised to " + promise1 + ".\n\n" + results);
 	};
 	
@@ -187,14 +187,16 @@ var customer9 = new Object();
 		};
 	};
 	customer9.oppInfo = function(name1, opportunity1, promise1){
-		customer1.display(customer1.fixed);
+		customer9.display(customer9.fixed);
 		alert("The customers name is "+ name1 + ".\n\nTheir " + opportunity1 + ".\n\nWe promised to " + promise1 + ".\n\n" + results);
 	};
 
 // Push the objects to an array to populate the Window with Buttons
 objectArray.push(customer0,customer1,customer2,customer3,customer4,customer5,customer6,customer7,customer8,customer9);
 
+
 // This line calls the oppInfo property of the selected customer which in turn displays the appropriate information.
+// Switch-Case Statement
 var viewCustomer = function (customer){
 	switch(customer){
 		case "customer0":
@@ -239,7 +241,7 @@ var objectLoop = function(objectData){
 			text: objectData[i].name,
 			pass: ("customer"+[i]),
 			font: {fontSize: sizeFont},
-			height: 40,
+			height: 35,
 			width: buttonWidth,
 			backgroundColor: "#fff",
 			borderColor: "#222",
@@ -247,9 +249,9 @@ var objectLoop = function(objectData){
 			textAlign: "center"
 		});
 		if (i<1){
-			button.top = 40;
+			button.top = 25;
 		} else {
-			button.top = 10;
+			button.top = 8;
 		};
 		
 		//button.addEventListener("click", openAlert);

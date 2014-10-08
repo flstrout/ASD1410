@@ -1,0 +1,37 @@
+// Fred Strout
+// ASD 1410
+// Remote Data
+// 10/8/14
+
+var mainWindow = Ti.UI.createWindow({
+	backgroundColor: "#000"
+});
+
+var graphic1 = Ti.UI.createView({
+	backgroundColor: "#f40",
+	top: 25,
+	right: 10,
+	width: 265,
+	height: 25,
+	borderRadius: 11
+});
+
+var graphic2 = Ti.UI.createView({
+	backgroundColor: "#f40",
+	top: 25,
+	left: 10,
+	width: 80,
+	height: 430,
+	borderRadius: 37
+});
+
+var graphic3 = Ti.UI.createView({
+	backgroundColor: "#f00",
+	top: 40,
+	left: 80,
+	width: 40,
+	height: 40
+});
+
+mainWindow.add(graphic1, graphic2, graphic3);
+mainWindow.open();

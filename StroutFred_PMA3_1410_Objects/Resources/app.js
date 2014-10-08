@@ -9,9 +9,9 @@ var mainWindow = Titanium.UI.createWindow({
     layout: "vertical"
 });
 
-/*var navWindow = Ti.UI.iOS.createNavigationWindow({
+var navWindow = Ti.UI.iOS.createNavigationWindow({
 	window: mainWindow
-});*/
+});
 
 var loadObjects = require("object");
-mainWindow.open();
+navWindow.open();

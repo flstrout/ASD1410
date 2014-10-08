@@ -1,0 +1,95 @@
+//10 Errors to fix. Good luck!
+
+window.addEventListener("DOMContentLoaded", function(){
+
+//Predefined flavors
+
+var flavors = [
+	{
+		"flavor": "Vanilla",
+		"favorite": "Yes!",
+		"notes": "Great for sundaes."
+	},
+	{
+		"flavor": "Chocolate",
+		"favorite": "Yes!", //**Debugged** missing coma
+		"notes": "All parts chocolate. What's not to love?"
+	},
+	{
+		"flavor": "Neapolitan",
+		"favorite": "No",
+		"notes": "I dislike the strawberry chunks."
+	}
+];
+
+
+//Display flavors from Array
+//Note: I will show you how to pull in the JQM listview styles in ASD when we use jQuery. 
+//Don't worry about the formatting at this point... just get the data to display
+
+var showFlavors = function(){
+  
+	for(var i=1, len=flavors.length; i<len; i++){
+    	var newLi = document.createElement('li');
+    		
+document.getElementById('list').appendChild(newLi);
+  
+      var heading =document.createElement('h3');
+          heading.innerHTML = flavors[i].flavor;
+          	newLi.appendChild(heading);
+      var pNotes = document.createElement('p');
+          	pNotes.innerHTML= flavors[i].notes;
+          newLi.appendChild(pNotes);
+      var pFav = document.createElement('p');
+          pFav.innerhtml= "Is this a favorite? " +flavors[i].favorite;
+          	newLi.appendChild(pFav);
+
+  }
+};
+
+var display = document.querySelector("#display");
+display.addEventListener("click", showFlavors);
+
+//Check status of Checkbox
+
+var getFavorite = function(){
+  var favCheck = document.querySelector("#fav");
+  var status;
+		if(favCheck.checked){
+			status = "Yes!";
+     }else{
+            status = "No";
+        }
+	return status;
+};
+
+//Save Function
+
+var saveFlavor = function(){
+  
+  var fav = getFavorite();
+  
+  var newFlavor = {};
+  newFlavor.flavor = document.getElemntById('flavor').value;
+  	newFlavor.favorite = fav;
+  newFlavor.notes = document.getElementById('notes');
+  
+  flavors.push(newflavor);
+  	location.href="#home";
+  document.getElementById('list').innerHTML = "";
+};
+
+		var save = document.querySelector("#submitFlavor");
+
+
+//Clear Flavors
+
+var clear = document.querySelector("clear");
+clear.addEventListener("click", clearFlavors);
+
+var clearFlavors = function(){
+  flavors.length = 0;
+  	document.getElementById('list').innerHTML = "";
+};
+
+});
