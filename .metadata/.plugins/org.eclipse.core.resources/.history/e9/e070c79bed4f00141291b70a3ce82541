@@ -1,0 +1,14 @@
+var displayData = function(d){
+	console.log(d);
+	for(i=0, j=d.length; i<j; i++){
+		var titleLabel = Ti.UI.createLabel({
+			text: d[i].title,
+			color: "#eee",
+			font: {fontSize: 8, fontStyle: "Helvitica Neue"},
+			top: 8
+		});
+		graphic4.add(titleLabel);
+	};
+};
+
+exports.displayData = displayData;

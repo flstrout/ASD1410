@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;StroutFred_ASD1410_RemoteData/Resources/network&apos; to &apos;network.js&apos;" description="Rename resource &apos;network&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Resources/network" name="network.js" stamp="1412782310666" updateReferences="true"/>
+</session>

@@ -1,0 +1,32 @@
+var scrollIt = Ti.UI.createScrollView({
+	layout: "vertical",
+	scrollType: "vertical",
+	contentWidth: "100%",
+	showVerticalScrollIndicator: true,
+	top: 15,
+	bottom: 15,
+	backgroundColor: "#999"
+});
+
+var displayData = function(d){
+	// console.log(d);
+	for(i=0, j=d.length; i<j; i++){
+		var titleLabel = Ti.UI.createLabel({
+			text: d[i].title,
+			color: "#eee",
+			font: {fontSize: 10, fontStyle: "Helvitica Neue"},
+			top: 8,
+			left: 7,
+			right: 7
+		});
+		var pictureImage = Ti.UI.createImageView ({
+			top: 3,
+			image: d[i].picture,
+			height: 40
+		});
+		scrollIt.add(titleLabel, pictureImage);
+	};
+};
+graphic4.add(scrollIt);
+
+exports.displayData = displayData;

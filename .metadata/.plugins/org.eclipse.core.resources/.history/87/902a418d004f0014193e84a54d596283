@@ -1,0 +1,7 @@
+var netCheck = function(){
+if (Ti.Network.online){
+
+}else{
+	alert("Network not available. Check your settings.");
+};
+};
