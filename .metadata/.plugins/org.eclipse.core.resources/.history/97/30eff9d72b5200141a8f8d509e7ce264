@@ -1,0 +1,9 @@
+var tableWindow = Ti.UI.createWindow({
+	backgroundColor: "#bf0c0c",
+	title: "Customer Recovery",
+	statusBarStyle: 2,
+	barColor: "#333",
+	titleAttributes: {color: "#ccc"}
+});
+
+tableWindow.open();
