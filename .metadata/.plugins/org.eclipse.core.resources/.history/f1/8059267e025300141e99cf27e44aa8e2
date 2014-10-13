@@ -1,0 +1,16 @@
+// Fred Strout
+// ASD-1410
+// SQLite
+// 10/12/2014
+
+Ti.App.Properties.setString("name", "Old Manager");
+
+var mgrName = Ti.App.Properties.getString("name");
+console.log(mgrName);
+var newName = "New Manager";
+Ti.App.Properties.setString("name", newName);
+mgrName = Ti.App.Properties.getString("name");
+console.log(mgrName);
+var position = "";
+var homeStore = "";
+

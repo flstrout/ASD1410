@@ -15,4 +15,6 @@ var navWindow = Ti.UI.iOS.createNavigationWindow({
 	window: tableWindow
 });
 
+var getSettings = require("settings");
+
 navWindow.open();

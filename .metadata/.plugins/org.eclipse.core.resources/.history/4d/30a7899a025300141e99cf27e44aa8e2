@@ -1,0 +1,11 @@
+// Fred Strout
+// ASD-1410
+// SQLite
+// 10/12/2014
+
+var mgrName = "";
+if (Ti.App.Properties.getString("name")===null){
+	mgrName = "Fred";
+} else {
+	mgrName = Ti.App.Properties.getString("name");
+};
