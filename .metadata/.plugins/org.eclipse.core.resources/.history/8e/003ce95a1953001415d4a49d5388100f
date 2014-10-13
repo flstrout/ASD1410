@@ -13,7 +13,7 @@ var read = function(){
 	var db1Rows = db1.execute("SELECT id, customer, date, store, manager, WWW, promised, MIR, dateMIR, mgrMIR FROM opportunities");
 	while (db1Rows.isValidRow()){
 		tblOpportunities.push({
-			id: db1Rows.fieldByName("id"),
+			id: db1Rows.fieldByName("id")/*,
 			customer: db1Rows.fieldByName("customer"),
 			date: db1Rows.fieldByName("date"),
 			store: db1Rows.fieldByName("store"),
@@ -22,12 +22,12 @@ var read = function(){
 			promised: db1Rows.fieldByName("promised"),
 			bolMakeItRight: db1Rows.fieldByName("MIR"),
 			dateMakeItRight: db1Rows.fieldByName("dateMIR"),
-			mgrMakeItRight: db1Rows.fieldByName("mgrMIR")
+			mgrMakeItRight: db1Rows.fieldByName("mgrMIR")*/
 		});
 		db1Rows.next();
 	}
 	db1Rows.close();
 	db1.close();
 };
-read();
-console.log(tblOpportunities);
+
+console.log(stringify(tblOpportunities));

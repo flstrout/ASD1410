@@ -16,6 +16,5 @@ var navWindow = Ti.UI.iOS.createNavigationWindow({
 });
 
 var getSettings = require("settings");
-var getDB = require("database");
 
 navWindow.open();

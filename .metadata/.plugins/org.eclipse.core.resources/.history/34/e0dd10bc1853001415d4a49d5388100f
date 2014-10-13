@@ -25,9 +25,9 @@ var read = function(){
 			mgrMakeItRight: db1Rows.fieldByName("mgrMIR")
 		});
 		db1Rows.next();
-	}
+	};
 	db1Rows.close();
 	db1.close();
 };
-read();
+
 console.log(tblOpportunities);

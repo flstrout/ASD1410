@@ -29,5 +29,5 @@ var read = function(){
 	db1Rows.close();
 	db1.close();
 };
-read();
-console.log(tblOpportunities);
+
+console.log(JSON.parse(tblOpportunities));
