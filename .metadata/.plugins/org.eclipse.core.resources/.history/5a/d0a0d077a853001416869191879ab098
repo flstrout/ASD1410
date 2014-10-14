@@ -1,0 +1,28 @@
+// Home Screen Table Header
+var headView = Ti.UI.createView({ // Base View
+	backgroundColor: "#bf0c0c"
+});
+
+var headLabel = Ti.UI.createLabel({ // Label applied to the Base View
+	text: "OPEN OPPORTUNITIES",
+	color: "#ffcc00",
+	font: {fontWeight: "bold"},
+	left: 5
+});
+
+headView.add(headLabel);
+
+var tableSection = Ti.UI.createTableViewSection({ // Set the Sections Header to the headView variable
+	headerView: headView
+});
+
+// Populate the Sections with Data
+for (o in tblOpportunities){ 
+	var sectionDetail = Ti.UI.createTableViewRow({
+		title: tblOpportunities[o].customer,
+		hasChild: true,
+		backgroundColor: "#eee"
+	});
+	
+	tableSection.add(sectionDetail);
+};

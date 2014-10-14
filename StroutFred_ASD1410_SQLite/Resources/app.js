@@ -15,7 +15,16 @@ var navWindow = Ti.UI.iOS.createNavigationWindow({
 	window: tableWindow
 });
 
+// Create Table
+var opportunities = Ti.UI.createTableView({
+	top: 30,
+	style: Ti.UI.iPhone.TableViewStyle.GROUPED,
+	backgroundColor: "#bf0c0c",
+	separatorColor: "#bf0c0c"
+});
+
 var getSettings = require("settings");
 var getDB = require("database");
+var getUI = require("ui");
 
 navWindow.open();

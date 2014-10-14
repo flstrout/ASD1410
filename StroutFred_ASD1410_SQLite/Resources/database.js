@@ -30,4 +30,5 @@ var read = function(){
 	db1.close();
 };
 read();
+exports.tblOpportunities = tblOpportunities;
 console.log(tblOpportunities);
