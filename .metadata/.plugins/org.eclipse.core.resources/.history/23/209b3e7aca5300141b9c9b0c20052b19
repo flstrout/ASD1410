@@ -1,6 +1,6 @@
-// Fred Strout          Still need to create a Save or Cancel dialog box
-// ASD-1410             and tie in the saveSettings function and the
-// SQLite               closeSaveModal function.
+// Fred Strout
+// ASD-1410
+// SQLite
 // 10/12/2014
 
 var loadSettings = function(){
