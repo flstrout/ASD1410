@@ -92,14 +92,14 @@ var loadSettings = function(){
 		backgroundColor: "#bf0c0c",
 		title: "Customer Recovery",
 		statusBarStyle: 2,
-		barColor: "#bf0c0c",
-		titleAttributes: {color: "#fc0"},
+		barColor: "#333",
+		titleAttributes: {color: "#ccc"},
 		backButtonTitle: "Back"
 	});
 	
 	// Creates a Scroll View - needed when the keyboard is open
 	var settingsWindow = Ti.UI.createScrollView({
-		bottom: 34
+		
 	});
 	
 	// Create Menu Bar
@@ -284,7 +284,7 @@ var loadSettings = function(){
 		backgroundColor: "#fc0",
 		font: {fontSize: 11, fontFamily: "Helvetica Neue", fontWeight: "bold"},
 		color: "#333",
-		text: "Be Clean - Be Nice - Be Fast - Get It Right! - Make It Right!!!",
+		text: "Be Clean - Be Nice - Be Fast - Get It Right - Make It Right",
 		textAlign: "center",
 		bottom: 10,
 		width: "100%",
@@ -296,8 +296,8 @@ var loadSettings = function(){
 	settingsMenuBar.add(titleSMB);
 	settingsWindow.add(settingsMenuBar, lblManager, lblPosition, lblHomeStore, lblEID, lblPassword,
 						txtManager, txtPosition, txtHomeStore, txtEID, txtPassword, butSave,
-						butCancel, lblShowPassword, lblHidePassword);
-	setWindow.add(settingsWindow, tagline);
+						butCancel, tagline, lblShowPassword, lblHidePassword);
+	setWindow.add(settingsWindow);
 	navWindow.openWindow(setWindow);	
 	
 	console.log(mgrName);

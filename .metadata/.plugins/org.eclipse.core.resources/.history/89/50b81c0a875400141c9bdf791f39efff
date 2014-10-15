@@ -23,7 +23,7 @@ var opportunities = Ti.UI.createTableView({
 	separatorColor: "#bf0c0c"
 });
 
-//var getSettings = require("settings");
+var getSettings = require("settings");
 var getDB = require("database");
 var getUI = require("ui");
 

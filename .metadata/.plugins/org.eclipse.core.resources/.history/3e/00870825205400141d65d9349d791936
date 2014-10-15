@@ -99,7 +99,7 @@ var loadSettings = function(){
 	
 	// Creates a Scroll View - needed when the keyboard is open
 	var settingsWindow = Ti.UI.createScrollView({
-		bottom: 34
+		bottom: 33
 	});
 	
 	// Create Menu Bar

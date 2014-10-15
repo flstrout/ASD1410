@@ -89,7 +89,7 @@ var tagline = Ti.UI.createLabel({
 	backgroundColor: "#fc0",
 	font: {fontSize: 11, fontFamily: "Helvetica Neue", fontWeight: "bold"},
 	color: "#333",
-	text: "Be Clean - Be Nice - Be Fast - Get It Right! - Make It Right!!!",
+	text: "Be Clean - Be Nice - Be Fast - Get It Right - Make It Right",
 	textAlign: "center",
 	bottom: 10,
 	width: "100%",

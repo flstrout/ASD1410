@@ -38,8 +38,7 @@ for (o in db.tblOpportunities){
 	var customerLabel = Ti.UI.createLabel({
 		text: db.tblOpportunities[o].customer,
 		top: 3,
-		left: 13,
-		font: {fontSize: 16, fontWeight: "bold"}
+		left: 13
 	});
 	
 	var promiseLabel = Ti.UI.createLabel({
@@ -68,7 +67,6 @@ var titleMB = Ti.UI.createLabel({
 	color: "#333"
 });
 
-var set = require("settings");
 // Creates the Menu Bar Buttons
 var butAdd = Ti.UI.createButton({
 	title: "Add",
@@ -80,8 +78,6 @@ var butSettings = Ti.UI.createButton({
 	right: 15
 });
 
-butSettings.addEventListener("click", set.loadSettings);
-
 // Footer Tagline
 var tagline = Ti.UI.createLabel({
 	borderColor: "#333",
@@ -89,7 +85,7 @@ var tagline = Ti.UI.createLabel({
 	backgroundColor: "#fc0",
 	font: {fontSize: 11, fontFamily: "Helvetica Neue", fontWeight: "bold"},
 	color: "#333",
-	text: "Be Clean - Be Nice - Be Fast - Get It Right! - Make It Right!!!",
+	text: "Be Clean - Be Nice - Be Fast - Get It Right - Make It Right",
 	textAlign: "center",
 	bottom: 10,
 	width: "100%",

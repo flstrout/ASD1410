@@ -99,7 +99,7 @@ var loadSettings = function(){
 	
 	// Creates a Scroll View - needed when the keyboard is open
 	var settingsWindow = Ti.UI.createScrollView({
-		bottom: 34
+		
 	});
 	
 	// Create Menu Bar
@@ -296,8 +296,8 @@ var loadSettings = function(){
 	settingsMenuBar.add(titleSMB);
 	settingsWindow.add(settingsMenuBar, lblManager, lblPosition, lblHomeStore, lblEID, lblPassword,
 						txtManager, txtPosition, txtHomeStore, txtEID, txtPassword, butSave,
-						butCancel, lblShowPassword, lblHidePassword);
-	setWindow.add(settingsWindow, tagline);
+						butCancel, tagline, lblShowPassword, lblHidePassword);
+	setWindow.add(settingsWindow);
 	navWindow.openWindow(setWindow);	
 	
 	console.log(mgrName);
