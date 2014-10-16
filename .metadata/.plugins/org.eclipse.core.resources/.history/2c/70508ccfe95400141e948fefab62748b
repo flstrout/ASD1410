@@ -4,13 +4,12 @@
 // 10/12/2014
 
 var loadInput = function(newRecord){
-	
 	var addNewWindow = Ti.UI.createWindow({
 		backgroundColor: "#bf0c0c",
 		title: "Customer Recovery",
 		statusBarStyle: 2,
-		barColor: "#bf0c0c",
-		titleAttributes: {color: "#fc0"},
+		barColor: "#333",
+		titleAttributes: {color: "#ccc"},
 		backButtonTitle: "Back"
 	});
 	
@@ -174,7 +173,7 @@ var loadInput = function(newRecord){
 	});
 
 	if (newRecord.new != "Yes"){
-		console.log("This works");
+		txtCustomer.value = this.customer;
 	};
 	addMenuBar.add(titleAMB);
 	addWindow.add(addMenuBar, lblOpportunity, lblCustomer, lblPromise, lblRequired1, lblRequired2,

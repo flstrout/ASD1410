@@ -51,8 +51,8 @@ for (o in db.tblOpportunities){
 	});
 	
 	sectionDetail.addEventListener("click", function(event){
-		getNew.loadInput(event.source);
-		//console.log(event.source);
+		//getNew.loadInput(event.source);
+		console.log(event.source);
 	});
 	sectionDetail.add(customerLabel, promiseLabel);
 	tableSection.add(sectionDetail);
@@ -85,7 +85,7 @@ var getNew = require("new");
 
 butAdd.addEventListener("click", function(event){
 		getNew.loadInput(event.source);
-		//console.log(event.source);
+		console.log(event.source);
 });
 
 var butSettings = Ti.UI.createButton({

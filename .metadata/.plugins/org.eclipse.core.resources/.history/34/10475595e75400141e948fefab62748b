@@ -33,9 +33,8 @@ for (o in db.tblOpportunities){
 		customer: db.tblOpportunities[o].customer,
 		hasChild: true,
 		height: 41,
-		backgroundColor: "#eee",
+		backgroundColor: "#eee"
 	});
-	
 	var customerLabel = Ti.UI.createLabel({
 		text: db.tblOpportunities[o].customer,
 		top: 3,
@@ -50,10 +49,6 @@ for (o in db.tblOpportunities){
 		font: {fontSize: 12}
 	});
 	
-	sectionDetail.addEventListener("click", function(event){
-		getNew.loadInput(event.source);
-		//console.log(event.source);
-	});
 	sectionDetail.add(customerLabel, promiseLabel);
 	tableSection.add(sectionDetail);
 };
@@ -84,8 +79,8 @@ var butAdd = Ti.UI.createButton({
 var getNew = require("new");
 
 butAdd.addEventListener("click", function(event){
-		getNew.loadInput(event.source);
-		//console.log(event.source);
+		getNew.loadData(event.source);
+		console.log(event.source.new);
 });
 
 var butSettings = Ti.UI.createButton({
