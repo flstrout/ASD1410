@@ -1,5 +1,0 @@
-var displayData = function(){
-	
-};
-
-exports.displayData = displayData;

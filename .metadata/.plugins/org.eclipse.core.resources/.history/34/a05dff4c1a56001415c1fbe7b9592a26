@@ -1,0 +1,139 @@
+// Fred Strout
+// ASD-1410
+// SQLite
+// 10/12/2014
+
+var manager = "Fred Strout";
+var position = "DM2";
+var homeStore = "11766-10 (Rayne, LA)";
+var eid = "e1213048";
+var password = "Dennis01";
+var getSettings = require("settings");
+var getNew = require("new");
+var getDetail = require("detail");
+
+var oppJSON = {
+	"Opportunities": [
+			  {
+			  	"Customer":"Ken Kastner",
+			    "DateCreated":"12/29/2013",
+			    "Opportunity":"Ordered a Big Mac, received a Qrtr Pounder.",
+			    "Promise":"One Big Mac Value Meal",
+			    "PromisedBy":"Fred Strout",
+			    "Quality":"No",
+			    "Service":"Yes",
+			    "Safety":"No",
+			  },
+			  {
+			  	"Customer":"Jason Stelly",
+			    "DateCreated":"12/24/2013",
+			    "Opportunity":"Hair in his Food.",
+			    "Promise":"Refund if he has the receipt; replace product otherwise.",
+			    "PromisedBy":"Sierra LaBorde",
+			    "Quality":"Yes",
+			    "Service":"No",
+			    "Safety":"Yes",
+			  },
+			  {
+			  	"Customer":"Chris",
+			    "DateCreated":"11/18/2013",
+			    "Opportunity":"Fries were Cold",
+			    "Promise":"Free Fresh Fry with a Free Upsize.",
+			    "PromisedBy":"Mackenzie David",
+			    "Quality":"Yes",
+			    "Service":"No",
+			    "Safety":"No",
+			  }
+		]
+};
+
+
+var list = [];
+
+ // Home Screen Table Header
+var headView = Ti.UI.createView({ // Base View
+	backgroundColor: "#bf0c0c"
+});
+
+var headLabel = Ti.UI.createLabel({ // Label applied to the Base View
+	text: "OPEN OPPORTUNITIES",
+	color: "#ffcc00",
+	font: {fontWeight: "bold"},
+	left: 5
+});
+
+headView.add(headLabel);
+
+var tableSection = Ti.UI.createTableViewSection({ // Set the Sections Header to the headView variable
+	headerView: headView
+});
+
+// Send Variables outside the Loop so they won't get overwritten
+list.push(tableSection);
+
+// Populate the Sections with Data
+for (o in oppJSON.Opportunities){ 
+	var sectionDetail = Ti.UI.createTableViewRow({
+		title: oppJSON.Opportunities[o].Customer,
+		DateCreated: oppJSON.Opportunities[o].DateCreated,
+		Opportunity: oppJSON.Opportunities[o].Opportunity,
+		Promise: oppJSON.Opportunities[o].Promise,
+		PromisedBy: oppJSON.Opportunities[o].PromisedBy,
+		Quality: oppJSON.Opportunities[o].Quality,
+		Service: oppJSON.Opportunities[o].Service,
+		Safety: oppJSON.Opportunities[o].Safety,
+		hasChild: true,
+		backgroundColor: "#eee"
+	});
+	
+	tableSection.add(sectionDetail);
+};
+
+// Create Menu Bar
+var menuBar = Ti.UI.createView({
+	backgroundColor: "#ffcc00",
+	borderColor: "#333",
+	borderWidth: 2,
+	top: 0,
+	height: 50
+});
+
+var titleMB = Ti.UI.createLabel({
+	text: "Home",
+	font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+	color: "#333"
+});
+
+// Creates the Menu Bar Buttons
+var butAdd = Ti.UI.createButton({
+	title: "Add",
+	left: 15
+});
+
+var butSettings = Ti.UI.createButton({
+	title: "Settings",
+	right: 15
+});
+
+// Footer Tagline
+var tagline = Ti.UI.createLabel({
+	borderColor: "#333",
+	borderWidth: 2,
+	backgroundColor: "#fc0",
+	font: {fontSize: 12, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+	color: "#333",
+	text: "Fast   |   Accurate   |   Get It Right   |   Make It Right",
+	textAlign: "center",
+	top: 474,
+	width: "100%",
+	height: 22
+});
+
+menuBar.add(titleMB, butAdd, butSettings);
+butAdd.addEventListener("click", getNew.loadInput);
+butSettings.addEventListener("click", getSettings.loadSettings);
+opportunities.setData(list);
+opportunities.addEventListener("click", function(event){
+	loadDetail(event.source);
+});
+tableWindow.add(opportunities, menuBar, tagline);

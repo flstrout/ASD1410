@@ -1,0 +1,949 @@
+// Fred Strout
+// ASD-1410
+// SQLite
+// 10/12/2014
+
+var manager = "Fred Strout";
+var position = "DM2";
+var homeStore = "11766-10 (Rayne, LA)";
+var eid = "e1213048";
+var password = "Dennis01";
+var getSettings = require("settings");
+
+var oppJSON = {
+	"Opportunities": [
+			  {
+			  	"Customer":"Ken Kastner",
+			    "DateCreated":"12/29/2013",
+			    "Opportunity":"Ordered a Big Mac, received a Qrtr Pounder.",
+			    "Promise":"One Big Mac Value Meal",
+			    "PromisedBy":"Fred Strout",
+			    "Quality":"No",
+			    "Service":"Yes",
+			    "Safety":"No",
+			  },
+			  {
+			  	"Customer":"Jason Stelly",
+			    "DateCreated":"12/24/2013",
+			    "Opportunity":"Hair in his Food.",
+			    "Promise":"Refund if he has the receipt; replace product otherwise.",
+			    "PromisedBy":"Sierra LaBorde",
+			    "Quality":"Yes",
+			    "Service":"No",
+			    "Safety":"Yes",
+			  },
+			  {
+			  	"Customer":"Chris",
+			    "DateCreated":"11/18/2013",
+			    "Opportunity":"Fries were Cold",
+			    "Promise":"Free Fresh Fry with a Free Upsize.",
+			    "PromisedBy":"Mackenzie David",
+			    "Quality":"Yes",
+			    "Service":"No",
+			    "Safety":"No",
+			  }
+		]
+};
+
+// Add a new record
+var showAdd = function(){
+	
+	// Submit Data Popup Modal
+	var openSaveModal = function(){
+		
+		// Change Popup Message - Not Yet Available
+		var saveSettings = function(){
+			lblSaveChanges.text = "Sorry!";
+			lblSaveChanges.color = "#f00";
+			lblSaveDesc.text = "This Feature is\nnot yet available.";
+		};
+		
+		var closeSaveModal = function(){
+			addNewWindow.remove(tintView);
+			addNewWindow.remove(saveModal);
+		};
+		
+		// Tint the Main Window and Open the Modal View
+		var tintView = Ti.UI.createView({
+			backgroundColor: "#000",
+			opacity: .60,
+			zIndex: 2
+		});
+		
+		var saveModal = Ti.UI.createView({
+			borderRadius: 5,
+			top: 85,
+			height: "40%",
+			width: "80%",
+			backgroundColor: "#000",
+			zIndex: 3
+		});
+		
+		// Popup Message
+		var lblSaveChanges = Ti.UI.createLabel({
+			text: "Confirm Submission",
+			top: 30,
+			font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		var lblSaveDesc = Ti.UI.createLabel({
+			text: "Do you want to save\nthis information\nto the data file?",
+			textAlign: "center",
+			top: 55,
+			font: {fontSize: 16, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		// Popup Buttons
+		var lblSave = Ti.UI.createLabel({
+			text: "Submit",
+			top: 168,
+			right: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#0f0",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblSave.addEventListener("click", saveSettings);
+		
+		var lblCancel = Ti.UI.createLabel({
+			text: "Cancel",
+			top: 168,
+			left: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#f00",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblCancel.addEventListener("click", closeSaveModal);
+		
+		saveModal.add(lblSaveChanges, lblSaveDesc, lblSave, lblCancel);
+		addNewWindow.add(tintView, saveModal);
+		
+	};
+	
+	// Create the Window
+	var addNewWindow = Ti.UI.createWindow({
+		backgroundColor: "#bf0c0c",
+		title: "Customer Recovery",
+		statusBarStyle: 2,
+		barColor: "#333",
+		titleAttributes: {color: "#ccc"},
+		backButtonTitle: "Back"
+	});
+	
+	// Creates a Scroll View - needed when the keyboard is open
+	var addWindow = Ti.UI.createScrollView({});
+	
+	// Create Menu Bar
+	var addMenuBar = Ti.UI.createView({
+		backgroundColor: "#ffcc00",
+		borderColor: "#333",
+		borderWidth: 2,
+		top: 0,
+		height: 50
+	});
+	
+	var titleAMB = Ti.UI.createLabel({
+		text: "Opportunity",
+		font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#333"
+	});
+
+	// Labels
+	var lblOpportunity = Ti.UI.createLabel({
+		text: "Opportunity:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: addMenuBar.height + 10,
+		height: 14,
+		left: 13
+	});
+	
+	var lblRequired1 = Ti.UI.createLabel({
+		text: "*Required",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#fc0",
+		top: addMenuBar.height + 10,
+		height: 14,
+		right: 13
+	});
+	
+	var lblCustomer = Ti.UI.createLabel({
+		text: "Customer:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: lblOpportunity.top + lblOpportunity.height + 110,
+		height: 14,
+		left: 13
+	});
+	
+	var lblRequired2 = Ti.UI.createLabel({
+		text: "*Required",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#fc0",
+		top: lblOpportunity.top + lblOpportunity.height + 110,
+		height: 14,
+		right: 13
+	});
+	
+	var lblPromise = Ti.UI.createLabel({
+		text: "Promised Resolution:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: lblCustomer.top + lblCustomer.height + 60,
+		height: 14,
+		left: 13
+	});
+	
+	var lblRequired3 = Ti.UI.createLabel({
+		text: "*Required",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#fc0",
+		top: lblCustomer.top + lblCustomer.height + 60,
+		height: 14,
+		right: 13
+	});
+	
+	// Input Fields
+	var txtOpportunity = Ti.UI.createTextField({
+		hintText: "What Was Wrong?",
+		verticalAlign: 1,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		top: lblOpportunity.top + 20,
+		left: 10,
+		right: 10,
+		height: 100,
+		paddingLeft: 10,
+		paddingRight: 10,
+		backgroundColor: "#eee"
+	});
+	
+	var txtCustomer = Ti.UI.createTextField({
+		hintText: "Customers Name",
+		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		top: lblCustomer.top + 20,
+		left: 10,
+		right: 10,
+		height: 40,
+		paddingLeft: 10,
+		paddingRight: 10,
+		backgroundColor: "#eee"
+	});
+	
+	var txtPromise = Ti.UI.createTextField({
+		hintText: "Make Them Happy!!!",
+		verticalAlign: 1,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		top: lblPromise.top + 20,
+		left: 10,
+		right: 10,
+		height: 100,
+		paddingLeft: 10,
+		paddingRight: 10,
+		backgroundColor: "#eee"
+	});
+	
+	// Form Buttons
+	var butSave = Ti.UI.createLabel({
+		text: "Save",
+		borderColor: "#333",
+		borderWidth: 2,
+		borderRadius: 5,
+		backgroundColor: "#0f0",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#333",
+		top: 425,
+		left: 10,
+		width: 120,
+		height: 35,
+		textAlign: "center"
+	});
+	
+	butSave.addEventListener("click", openSaveModal);
+	
+	var butCancel = Ti.UI.createLabel({
+		text: "-Cancel-",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#fc0",
+		top: 425,
+		left: 135,
+		width: 120,
+		height: 35,
+		textAlign: "center"
+	});
+	
+	butCancel.addEventListener("click", function(){
+		addNewWindow.close();
+	});
+	
+	addMenuBar.add(titleAMB);
+	addWindow.add(addMenuBar, lblOpportunity, lblCustomer, lblPromise, lblRequired1, lblRequired2,
+				lblRequired3, txtOpportunity, txtCustomer, txtPromise, butSave, butCancel, tagline);
+	addNewWindow.add(addWindow);
+	navWindow.openWindow(addNewWindow);
+};
+	
+
+// Settings Window
+var showSettings = function(){
+	
+	// Show/Hide the Password Feature
+	var showPassword = function(){
+		txtPassword.passwordMask = false;
+		lblShowPassword.visible = false;
+		lblHidePassword.visible = true;
+	};
+	
+	var hidePassword = function(){
+		txtPassword.passwordMask = true;
+		lblShowPassword.visible = true;
+		lblHidePassword.visible = false;
+	};
+	
+	// Save Settings Popup Modal
+	var openSaveModal = function(){
+		
+		// Save the Current Values to the Global Variables
+		var saveSettings = function(){
+			manager = txtManager.value;
+			position = txtPosition.value;
+			homeStore = txtHomeStore.value;
+			eid = txtEID.value;
+			password = txtPassword.value;
+			settingsWindow.remove(tintView);
+			settingsWindow.remove(saveModal);
+			setWindow.close();
+		};
+		
+		// Popup Cancel Button closes the settingsWindow and reopens it with the original data
+		var closeSaveModal = function(){
+			setWindow.close();
+			showSettings();
+		};
+		
+		// Tint the Main Window and Open the Modal View
+		var tintView = Ti.UI.createView({
+			backgroundColor: "#000",
+			opacity: .60,
+			zIndex: 2
+		});
+		
+		var saveModal = Ti.UI.createView({
+			borderRadius: 5,
+			top: 85,
+			height: "40%",
+			width: "80%",
+			backgroundColor: "#000",
+			zIndex: 3
+		});
+		
+		// Popup Modal Message
+		var lblSaveChanges = Ti.UI.createLabel({
+			text: "Save Changes?",
+			top: 30,
+			font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		var lblSaveDesc = Ti.UI.createLabel({
+			text: "Would you like to\nsave changes to\n the data file?",
+			textAlign: "center",
+			top: 55,
+			font: {fontSize: 16, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		// Popup Buttons
+		var lblSave = Ti.UI.createLabel({
+			text: "Save",
+			top: 168,
+			right: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#0f0",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblSave.addEventListener("click", saveSettings);
+		
+		var lblCancel = Ti.UI.createLabel({
+			text: "Cancel",
+			top: 168,
+			left: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#f00",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblCancel.addEventListener("click", closeSaveModal);
+		
+		saveModal.add(lblSaveChanges, lblSaveDesc, lblSave, lblCancel);
+		settingsWindow.add(tintView, saveModal);
+	};
+	
+	// Form Cancel Button Function
+	var closeSettings = function(){
+		setWindow.close();
+	};
+	
+	// Creates the Settings Window
+	var setWindow = Ti.UI.createWindow({
+		backgroundColor: "#bf0c0c",
+		title: "Customer Recovery",
+		statusBarStyle: 2,
+		barColor: "#333",
+		titleAttributes: {color: "#ccc"},
+		backButtonTitle: "Back"
+	});
+	
+	// Creates a Scroll View - needed when the keyboard is open
+	var settingsWindow = Ti.UI.createScrollView({
+		
+	});
+	
+	// Create Menu Bar
+	var settingsMenuBar = Ti.UI.createView({
+		backgroundColor: "#ffcc00",
+		borderColor: "#333",
+		borderWidth: 2,
+		top: 0,
+		height: 50
+	});
+	
+	var titleSMB = Ti.UI.createLabel({
+		text: "Settings",
+		font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#333"
+	});
+	
+	// Labels
+	var lblManager = Ti.UI.createLabel({
+		text: "Manager:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: settingsMenuBar.height + 10,
+		height: 14,
+		left: 13
+	});
+	
+	var lblPosition = Ti.UI.createLabel({
+		text: "Position:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: lblManager.top + lblManager.height + 60,
+		height: 14,
+		left: 13
+	});
+	
+	var lblHomeStore = Ti.UI.createLabel({
+		text: "Home Store:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: lblPosition.top + lblPosition.height + 60,
+		height: 14,
+		left: 13
+	});
+	
+	var lblEID = Ti.UI.createLabel({
+		text: "EID:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: lblHomeStore.top + lblHomeStore.height + 60,
+		height: 14,
+		left: 13
+	});
+	
+	var lblPassword = Ti.UI.createLabel({
+		text: "Password:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: lblEID.top + lblEID.height + 60,
+		height: 14,
+		left: 13
+	});
+	
+	var lblShowPassword = Ti.UI.createLabel({
+		visible: true,
+		text: "*Show Password",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#0f0",
+		top: lblEID.top + lblEID.height + 60,
+		height: 14,
+		right: 13
+	});
+	
+	var lblHidePassword = Ti.UI.createLabel({
+		visible: false,
+		text: "*Hide Password",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#0f0",
+		top: lblEID.top + lblEID.height + 60,
+		height: 14,
+		right: 13
+	});
+	
+	// Input Fields
+	var txtManager = Ti.UI.createTextField({
+		value: manager,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue"},
+		top: lblManager.top + 20,
+		left: 10,
+		right: 10,
+		height: 40,
+		paddingLeft: 10,
+		paddingRight: 10,
+		backgroundColor: "#eee"
+	});
+	
+	var txtPosition = Ti.UI.createTextField({
+		value: position,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue"},
+		top: lblPosition.top + 20,
+		left: 10,
+		right: 10,
+		height: 40,
+		paddingLeft: 10,
+		paddingRight: 10,
+		backgroundColor: "#eee"
+	});
+	
+	// Tells the lblShowPassword and lblHidePassword labels what to do when clicked.
+	lblShowPassword.addEventListener("click", showPassword);
+	lblHidePassword.addEventListener("click", hidePassword);
+	 
+	var txtHomeStore = Ti.UI.createTextField({
+		value: homeStore,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue"},
+		top: lblHomeStore.top + 20,
+		left: 10,
+		right: 10,
+		height: 40,
+		paddingLeft: 10,
+		paddingRight: 10,
+		backgroundColor: "#eee"
+	});
+	
+	var txtEID = Ti.UI.createTextField({
+		value: eid,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue"},
+		top: lblEID.top + 20,
+		left: 10,
+		right: 10,
+		height: 40,
+		paddingLeft: 10,
+		paddingRight: 10,
+		backgroundColor: "#eee"
+	});
+	
+	var txtPassword = Ti.UI.createTextField({
+		value: password,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue"},
+		passwordMask: true,
+		top: lblPassword.top + 20,
+		left: 10,
+		right: 10,
+		height: 40,
+		paddingLeft: 10,
+		paddingRight: 10,
+		backgroundColor: "#eee"
+	});
+	
+	// Form Buttons
+	var butSave = Ti.UI.createLabel({
+		text: "Save",
+		borderColor: "#333",
+		borderWidth: 2,
+		borderRadius: 5,
+		backgroundColor: "#0f0",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#333",
+		top: 425,
+		left: 10,
+		width: 120,
+		height: 35,
+		textAlign: "center"
+	});
+	
+	butSave.addEventListener("click", openSaveModal);
+	
+	var butCancel = Ti.UI.createLabel({
+		text: "-Cancel-",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#fc0",
+		top: 425,
+		left: 135,
+		width: 120,
+		height: 35,
+		textAlign: "center"
+	});
+	
+	butCancel.addEventListener("click", closeSettings);
+	
+	settingsMenuBar.add(titleSMB);
+	settingsWindow.add(settingsMenuBar, lblManager, lblPosition, lblHomeStore, lblEID, lblPassword,
+						txtManager, txtPosition, txtHomeStore, txtEID, txtPassword, butSave,
+						butCancel, tagline, lblShowPassword, lblHidePassword);
+	setWindow.add(settingsWindow);
+	navWindow.openWindow(setWindow);
+};
+	
+var showDetail = function(dataSource){
+	
+	// Creates the Make It Right Popup Modal
+	var openSaveModal = function(){
+		
+		// Change Popup Message - Not Yet Available
+		var saveSettings = function(){
+			lblSaveChanges.text = "Sorry!";
+			lblSaveChanges.color = "#f00";
+			lblSaveDesc.text = "This Feature is\nnot yet available.";
+		};
+		
+		var closeSaveModal = function(){
+			detailWindow.remove(tintView);
+			detailWindow.remove(saveModal);
+		};
+		
+		// Tint the Main Window and Open the Modal View
+		var tintView = Ti.UI.createView({
+			backgroundColor: "#000",
+			opacity: .60,
+			zIndex: 2
+		});
+		
+		var saveModal = Ti.UI.createView({
+			borderRadius: 5,
+			top: 85,
+			height: "40%",
+			width: "80%",
+			backgroundColor: "#000",
+			zIndex: 3
+		});
+		
+		// Popup Message
+		var lblSaveChanges = Ti.UI.createLabel({
+			text: "Make It Right!!!",
+			top: 30,
+			font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		var lblSaveDesc = Ti.UI.createLabel({
+			text: "Would you like to close\nthis Recovery Opportunity?",
+			textAlign: "center",
+			top: 55,
+			font: {fontSize: 16, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		// Popup Buttons
+		var lblSave = Ti.UI.createLabel({
+			text: "Make It Right!!!",
+			top: 168,
+			right: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#0f0",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblSave.addEventListener("click", saveSettings);
+		
+		var lblCancel = Ti.UI.createLabel({
+			text: "Cancel",
+			top: 168,
+			left: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#f00",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblCancel.addEventListener("click", closeSaveModal);
+		
+		saveModal.add(lblSaveChanges, lblSaveDesc, lblSave, lblCancel);
+		detailWindow.add(tintView, saveModal);
+		
+	};
+	
+	// Creates the Opportunty Detail Window
+	var detailWindow = Ti.UI.createWindow({
+		backgroundColor: "#bf0c0c",
+		title: "Customer Recovery",
+		statusBarStyle: 2,
+		barColor: "#333",
+		titleAttributes: {color: "#ccc"},
+		backButtonTitle: "Back"
+	});
+	
+	// Create Menu Bar
+	var menuBar = Ti.UI.createView({
+		backgroundColor: "#ffcc00",
+		borderColor: "#333",
+		borderWidth: 2,
+		top: 0,
+		height: 50
+	});
+	
+	var titleMB = Ti.UI.createLabel({
+		text: "Opportunity",
+		font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#333"
+	});
+	
+	var lblCustomer = Ti.UI.createLabel({
+		text: "Customer:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: menuBar.height + 10,
+		height: 14,
+		left: 13
+	});
+	
+	// Labels
+	var lblDate = Ti.UI.createLabel({
+		text: "Date:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: menuBar.height + 10,
+		height: 14,
+		left: 213
+	});
+	
+	var lblOpportunity = Ti.UI.createLabel({
+		text: "Opportunity:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: lblCustomer.top + lblCustomer.height + 45,
+		height: 14,
+		left: 13
+	});
+	
+	var lblPromise = Ti.UI.createLabel({
+		text: "Promised Resolution:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: lblOpportunity.top + lblOpportunity.height + 75,
+		height: 14,
+		left: 13
+	});
+	
+	var lblPromisedBy = Ti.UI.createLabel({
+		text: "Promised By:",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#eee",
+		top: lblPromise.top + lblPromise.height + 75,
+		height: 14,
+		left: 13
+	});
+	
+	// Data
+	var dataCustomer = Ti.UI.createLabel({
+		text: dataSource.title,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#ffcc00",
+		top: lblCustomer.top + 16,
+		left: 8
+	});
+	
+	var dataDate = Ti.UI.createLabel({
+		text: dataSource.DateCreated,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#ffcc00",
+		top: lblCustomer.top + 16,
+		left: 208
+	});
+	
+	var dataOpportunity = Ti.UI.createLabel({
+		text: dataSource.Opportunity,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#ffcc00",
+		top: lblOpportunity.top + 16,
+		left: 8
+	});
+	
+	// Highlighted the Promised Resolution
+	var customBackground = Ti.UI.createView({
+		borderColor: "#222",
+		borderWidth: 2,
+		borderRadius: 7,
+		backgroundColor: "#ffcc00",
+		top: lblPromise.top + 18,
+		height: 70,
+		left: 4,
+		width: 308,
+		zIndex: 1
+	});
+	
+	var dataPromise = Ti.UI.createLabel({
+		text: dataSource.Promise,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#bf0c0c",
+		textAlign: "left",
+		verticalAlign: 1,
+		top: lblPromise.top + 20,
+		height: 66,
+		left: 8,
+		width: 300,
+		zIndex: 2
+	});
+	
+	var dataPromisedBy = Ti.UI.createLabel({
+		text: dataSource.PromisedBy,
+		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#ffcc00",
+		top: lblPromisedBy.top + 16,
+		left: 8
+	});
+	
+	// Popup Modal buttons
+	var butMakeItRight = Ti.UI.createLabel({
+		text: "Make it Right!",
+		borderColor: "#333",
+		borderWidth: 2,
+		borderRadius: 5,
+		backgroundColor: "#0f0",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#333",
+		top: 425,
+		left: 10,
+		width: 120,
+		height: 35,
+		textAlign: "center"
+	});
+	
+	butMakeItRight.addEventListener("click", openSaveModal);
+	
+	var butCancel = Ti.UI.createLabel({
+		text: "-Cancel-",
+		font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#fc0",
+		top: 425,
+		left: 135,
+		width: 120,
+		height: 35,
+		textAlign: "center"
+	});
+	
+	butCancel.addEventListener("click", function(){
+		detailWindow.close();
+	});
+	
+	menuBar.add(titleMB);
+	detailWindow.add(menuBar, lblCustomer, lblDate, lblOpportunity, lblPromise, lblPromisedBy, dataCustomer,
+					dataDate, dataOpportunity, dataPromise, dataPromisedBy, butMakeItRight, butCancel, customBackground, tagline);
+	navWindow.openWindow(detailWindow);
+};
+
+var list = [];
+
+ // Home Screen Table Header
+var headView = Ti.UI.createView({ // Base View
+	backgroundColor: "#bf0c0c"
+});
+
+var headLabel = Ti.UI.createLabel({ // Label applied to the Base View
+	text: "OPEN OPPORTUNITIES",
+	color: "#ffcc00",
+	font: {fontWeight: "bold"},
+	left: 5
+});
+
+headView.add(headLabel);
+
+var tableSection = Ti.UI.createTableViewSection({ // Set the Sections Header to the headView variable
+	headerView: headView
+});
+
+// Send Variables outside the Loop so they won't get overwritten
+list.push(tableSection);
+
+// Populate the Sections with Data
+for (o in oppJSON.Opportunities){ 
+	var sectionDetail = Ti.UI.createTableViewRow({
+		title: oppJSON.Opportunities[o].Customer,
+		DateCreated: oppJSON.Opportunities[o].DateCreated,
+		Opportunity: oppJSON.Opportunities[o].Opportunity,
+		Promise: oppJSON.Opportunities[o].Promise,
+		PromisedBy: oppJSON.Opportunities[o].PromisedBy,
+		Quality: oppJSON.Opportunities[o].Quality,
+		Service: oppJSON.Opportunities[o].Service,
+		Safety: oppJSON.Opportunities[o].Safety,
+		hasChild: true,
+		backgroundColor: "#eee"
+	});
+	
+	tableSection.add(sectionDetail);
+};
+
+// Create Menu Bar
+var menuBar = Ti.UI.createView({
+	backgroundColor: "#ffcc00",
+	borderColor: "#333",
+	borderWidth: 2,
+	top: 0,
+	height: 50
+});
+
+var titleMB = Ti.UI.createLabel({
+	text: "Home",
+	font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+	color: "#333"
+});
+
+// Creates the Menu Bar Buttons
+var butAdd = Ti.UI.createButton({
+	title: "Add",
+	left: 15
+});
+
+var butSettings = Ti.UI.createButton({
+	title: "Settings",
+	right: 15
+});
+
+// Footer Tagline
+var tagline = Ti.UI.createLabel({
+	borderColor: "#333",
+	borderWidth: 2,
+	backgroundColor: "#fc0",
+	font: {fontSize: 12, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+	color: "#333",
+	text: "Fast   |   Accurate   |   Get It Right   |   Make It Right",
+	textAlign: "center",
+	top: 474,
+	width: "100%",
+	height: 22
+});
+
+menuBar.add(titleMB, butAdd, butSettings);
+butAdd.addEventListener("click", showAdd);
+butSettings.addEventListener("click", loadSettings);
+opportunities.setData(list);
+opportunities.addEventListener("click", function(event){
+	showDetail(event.source);
+});
+tableWindow.add(opportunities, menuBar, tagline);

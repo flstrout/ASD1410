@@ -2,9 +2,132 @@
 // ASD-1410
 // SQLite
 // 10/12/2014
+var today = "";
+var getSettings = require("settings");
+var getDatabase = require("database");
+var manager = Ti.App.Properties.getString("name");
+var store = Ti.App.Properties.getString("store");
+var customer = "";
+var problem = "";
+var promise = "";
 
-var loadInput = function(newRecord){
+var todayDate = function(){
+	today = new Date();
+	var mm = today.getMonth()+1;  // +1 because January returns as zero, February returns as 1, etc, etc.
+	var dd = today.getDate();
+	var yyyy = today.getFullYear();
 	
+	// add a leading zero to months and days that have less than two digits
+	if(mm < 10) {
+	    mm= "0" + mm;
+	};
+	
+	if(dd < 10) {
+	    dd= "0" + dd;
+	};
+	
+	today = mm + "/" + dd + "/" + yyyy;
+};
+
+// Add a new record
+var loadInput = function(){
+	
+	todayDate();
+	
+	// Submit Data Popup Modal
+	var openSaveModal = function(){
+		
+		// Change Popup Message - Not Yet Available
+		var saveSettings = function(){
+			customer = txtCustomer.value;
+			problem = txtOpportunity.value;
+			promise = txtPromise.value;
+			
+			console.log(today);
+			console.log(store);
+			console.log(manager);
+			console.log(customer);
+			console.log(problem);
+			console.log(promise);
+			
+			getDatabase.create(customer, problem, promise, today, manager, store);
+			addNewWindow.close();
+		};
+		
+		var closeSaveModal = function(){
+			addNewWindow.remove(tintView);
+			addNewWindow.remove(saveModal);
+		};
+		
+		// Tint the Main Window and Open the Modal View
+		var tintView = Ti.UI.createView({
+			backgroundColor: "#000",
+			opacity: .60,
+			zIndex: 2
+		});
+		
+		var saveModal = Ti.UI.createView({
+			borderRadius: 5,
+			top: 85,
+			height: "40%",
+			width: "80%",
+			backgroundColor: "#000",
+			zIndex: 3
+		});
+		
+		// Popup Message
+		var lblSaveChanges = Ti.UI.createLabel({
+			text: "Confirm Submission",
+			top: 30,
+			font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		var lblSaveDesc = Ti.UI.createLabel({
+			text: "Do you want to save\nthis information\nto the data file?",
+			textAlign: "center",
+			top: 55,
+			font: {fontSize: 16, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		// Popup Buttons
+		var lblSave = Ti.UI.createLabel({
+			text: "Submit",
+			top: 168,
+			right: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#0f0",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblSave.addEventListener("click", saveSettings);
+		
+		var lblCancel = Ti.UI.createLabel({
+			text: "Cancel",
+			top: 168,
+			left: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#f00",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblCancel.addEventListener("click", closeSaveModal);
+		
+		saveModal.add(lblSaveChanges, lblSaveDesc, lblSave, lblCancel);
+		addNewWindow.add(tintView, saveModal);
+		
+	};
+	
+	// Create the Window
 	var addNewWindow = Ti.UI.createWindow({
 		backgroundColor: "#bf0c0c",
 		title: "Customer Recovery",
@@ -142,7 +265,7 @@ var loadInput = function(newRecord){
 		textAlign: "center"
 	});
 	
-	//butSave.addEventListener("click", openSaveModal);
+	butSave.addEventListener("click", openSaveModal);
 	
 	var butCancel = Ti.UI.createLabel({
 		text: "-Cancel-",
@@ -159,7 +282,6 @@ var loadInput = function(newRecord){
 		addNewWindow.close();
 	});
 	
-	// Footer Tagline
 	var tagline = Ti.UI.createLabel({
 		borderColor: "#333",
 		borderWidth: 2,
@@ -172,10 +294,7 @@ var loadInput = function(newRecord){
 		width: "100%",
 		height: 22
 	});
-
-	if (newRecord.new != "Yes"){
-		console.log("This works");
-	};
+	
 	addMenuBar.add(titleAMB);
 	addWindow.add(addMenuBar, lblOpportunity, lblCustomer, lblPromise, lblRequired1, lblRequired2,
 				lblRequired3, txtOpportunity, txtCustomer, txtPromise, butSave, butCancel, tagline);

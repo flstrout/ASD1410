@@ -71,16 +71,103 @@ var loadSettings = function(){
 		var saveSettings = function(){
 			Ti.App.Properties.setString("name", txtManager.value);
 			// manager = txtManager.value;
-			Ti.App.Properties.setString("name", txtPosition.value);
+			Ti.App.Properties.setString("position", txtPosition.value);
 			// position = txtPosition.value;
-			Ti.App.Properties.setString("name", txtHomeStore.value);
+			Ti.App.Properties.setString("store", txtHomeStore.value);
 			// homeStore = txtHomeStore.value;
-			Ti.App.Properties.setString("name", textEID.value);
+			Ti.App.Properties.setString("eid", textEID.value);
 			// eid = txtEID.value;
-			Ti.App.Properties.setString("name", txtPassword.value);
+			Ti.App.Properties.setString("password", txtPassword.value);
 			// password = txtPassword.value;
 			setWindow.close();
 		};
+	// Save Settings Popup Modal
+	var openSaveModal = function(){
+		
+		// Save the Current Values to the Global Variables
+		var saveSettings = function(){
+			manager = txtManager.value;
+			position = txtPosition.value;
+			homeStore = txtHomeStore.value;
+			eid = txtEID.value;
+			password = txtPassword.value;
+			settingsWindow.remove(tintView);
+			settingsWindow.remove(saveModal);
+			setWindow.close();
+		};
+		
+		// Popup Cancel Button closes the settingsWindow and reopens it with the original data
+		var closeSaveModal = function(){
+			setWindow.close();
+			loadSettings();
+		};
+		
+		// Tint the Main Window and Open the Modal View
+		var tintView = Ti.UI.createView({
+			backgroundColor: "#000",
+			opacity: .60,
+			zIndex: 2
+		});
+		
+		var saveModal = Ti.UI.createView({
+			borderRadius: 5,
+			top: 85,
+			height: "40%",
+			width: "80%",
+			backgroundColor: "#000",
+			zIndex: 3
+		});
+		
+		// Popup Modal Message
+		var lblSaveChanges = Ti.UI.createLabel({
+			text: "Save Changes?",
+			top: 30,
+			font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		var lblSaveDesc = Ti.UI.createLabel({
+			text: "Would you like to\nsave changes to\n the data file?",
+			textAlign: "center",
+			top: 55,
+			font: {fontSize: 16, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#eee"
+		});
+		
+		// Popup Buttons
+		var lblSave = Ti.UI.createLabel({
+			text: "Save",
+			top: 168,
+			right: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#0f0",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblSave.addEventListener("click", saveSettings);
+		
+		var lblCancel = Ti.UI.createLabel({
+			text: "Cancel",
+			top: 168,
+			left: "50%",
+			borderColor: "#eee",
+			borderWidth: 2,
+			color: "#f00",
+			width: 129,
+			height: 35,
+			font: {fontSize: 14, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			textAlign: "center"
+		});
+		
+		lblCancel.addEventListener("click", closeSaveModal);
+		
+		saveModal.add(lblSaveChanges, lblSaveDesc, lblSave, lblCancel);
+		settingsWindow.add(tintView, saveModal);
+	};
 	
 	// Form Cancel Button Function
 		var closeSettings = function(){
@@ -265,7 +352,7 @@ var loadSettings = function(){
 		textAlign: "center"
 	});
 	
-	//butSave.addEventListener("click", openSaveModal);
+	butSave.addEventListener("click", openSaveModal);
 	
 	var butCancel = Ti.UI.createLabel({
 		text: "-Cancel-",
