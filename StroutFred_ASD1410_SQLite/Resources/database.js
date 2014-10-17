@@ -10,8 +10,8 @@ var tblOpportunities = [];
 
 var read = function(){
 	var db1 = Ti.Database.open("infoDB");
-	db1.execute("CREATE TABLE IF NOT EXISTS opportunities (id INTEGER PRIMARY KEY , customer TEXT, date TEXT, store TEXT, manager TEXT, WWW TEXT, promised TEXT, MIR TEXT, dateMIR TEXT, mgrMIR TEXT)");
-	var db1Rows = db1.execute("SELECT id, customer, date, store, manager, WWW, promised, MIR, dateMIR, mgrMIR FROM opportunities");
+	db1.execute("CREATE TABLE IF NOT EXISTS opportunities (id INTEGER PRIMARY KEY , customer TEXT, date TEXT, store TEXT, manager TEXT, WWW TEXT, promised TEXT)");
+	var db1Rows = db1.execute("SELECT id, customer, date, store, manager, WWW, promised FROM opportunities");
 	while (db1Rows.isValidRow()){
 		tblOpportunities.push({
 			id: db1Rows.fieldByName("id"),
@@ -20,10 +20,7 @@ var read = function(){
 			store: db1Rows.fieldByName("store"),
 			PromisedBy: db1Rows.fieldByName("manager"),
 			Opportunity: db1Rows.fieldByName("WWW"),
-			Promise: db1Rows.fieldByName("promised"),
-			bolMakeItRight: db1Rows.fieldByName("MIR"),
-			dateMakeItRight: db1Rows.fieldByName("dateMIR"),
-			mgrMakeItRight: db1Rows.fieldByName("mgrMIR")
+			Promise: db1Rows.fieldByName("promised")
 		});
 		db1Rows.next();
 	}
@@ -34,7 +31,7 @@ exports.read = read;
 
 var create = function (customer, problem, promised, date, manager, store){
 	var db1 = Ti.Database.open("infoDB");
-	db1.execute("CREATE TABLE IF NOT EXISTS opportunities (id INTEGER PRIMARY KEY , customer TEXT, date TEXT, store TEXT, manager TEXT, WWW TEXT, promised TEXT, MIR TEXT, dateMIR TEXT, mgrMIR TEXT)");
+	db1.execute("CREATE TABLE IF NOT EXISTS opportunities (id INTEGER PRIMARY KEY , customer TEXT, date TEXT, store TEXT, manager TEXT, WWW TEXT, promised TEXTT)");
 	db1.execute("INSERT INTO opportunities (customer, WWW, promised, date, manager, store) VALUE (?, ?, ?, ?, ?, ?)", customer, problem, promised, date, manager, store);
 	var rowID = db1.lastInsertRowId;
 	db1.close();
