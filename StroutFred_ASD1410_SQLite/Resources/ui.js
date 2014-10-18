@@ -3,11 +3,7 @@
 // SQLite
 // 10/12/2014
 
-var manager = "Fred Strout";
-var position = "DM2";
-var homeStore = "11766-10 (Rayne, LA)";
-var eid = "e1213048";
-var password = "Dennis01";
+
 var getSettings = require("settings");
 var getNew = require("new");
 var getDetail = require("detail");
@@ -37,6 +33,7 @@ var loadUI = function(){
 	var tableSection = Ti.UI.createTableViewSection({ // Set the Sections Header to the headView variable
 		headerView: headView
 	});
+	exports.tableSection = tableSection;
 	
 	// Send Variables outside the Loop so they won't get overwritten
 	list.push(tableSection);
@@ -44,17 +41,18 @@ var loadUI = function(){
 	// Populate the Sections with Data
 	for (o in Opportunities){ 
 		var sectionDetail = Ti.UI.createTableViewRow({
-			RowID: Opportunities[o].id,
-			title: Opportunities[o].Customer,
-			DateCreated: Opportunities[o].DateCreated,
-			Opportunity: Opportunities[o].Opportunity,
-			Promise: Opportunities[o].Promise,
-			PromisedBy: Opportunities[o].PromisedBy,
+			id: Opportunities[o].id,
+			title: Opportunities[o].customer,
+			date: Opportunities[o].date,
+			problem: Opportunities[o].problem,
+			promise: Opportunities[o].promise,
+			manager: Opportunities[o].manager,
 			hasChild: true,
 			backgroundColor: "#eee"
 		});
 		
 		tableSection.add(sectionDetail);
+		exports.sectionDetail = sectionDetail;
 	};
 	
 	// Create Menu Bar
@@ -105,5 +103,6 @@ var loadUI = function(){
 		getDetail.loadDetail(event.source);
 	});
 	tableWindow.add(opportunities, menuBar, tagline);
+	
 };
 exports.loadUI = loadUI;

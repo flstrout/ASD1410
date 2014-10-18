@@ -2,9 +2,10 @@
 // ASD-1410
 // SQLite
 // 10/12/2014
-var today = "";
+
 var getSettings = require("settings");
 var getDatabase = require("database");
+var today = "";
 var manager = Ti.App.Properties.getString("name");
 var store = Ti.App.Properties.getString("store");
 var customer = "";
@@ -30,7 +31,21 @@ var todayDate = function(){
 };
 
 // Add a new record
-var loadInput = function(){
+var addRow = function(id){
+	var newRow = Ti.UI.createTableViewRow({
+		id: id,
+		title: customer,
+		date: today,
+		store: store,
+		manager: manager,
+		problem: problem,
+		promise: promise
+	});
+	opportunities.appendRow(newRow);
+};	
+exports.addRow = addRow;
+
+var loadInput = function(e){
 	
 	todayDate();
 	
@@ -43,16 +58,13 @@ var loadInput = function(){
 			problem = txtOpportunity.value;
 			promise = txtPromise.value;
 			
-			console.log(today);
-			console.log(store);
-			console.log(manager);
-			console.log(customer);
-			console.log(problem);
-			console.log(promise);
-			
-			getDatabase.create(customer, problem, promise, today, manager, store);
-			addNewWindow.close();
+			getDatabase.create(customer, today, store, manager, problem, promise);
+			var temp = opportunities.data;
+			opportunities.setData(temp);
+			loadData.loadUI();
+		
 		};
+		
 		
 		var closeSaveModal = function(){
 			addNewWindow.remove(tintView);
@@ -248,6 +260,7 @@ var loadInput = function(){
 		paddingRight: 10,
 		backgroundColor: "#eee"
 	});
+	
 	
 	// Form Buttons
 	var butSave = Ti.UI.createLabel({

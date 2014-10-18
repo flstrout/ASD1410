@@ -10,17 +10,17 @@ var tblOpportunities = [];
 
 var read = function(){
 	var db1 = Ti.Database.open("infoDB");
-	db1.execute("CREATE TABLE IF NOT EXISTS opportunities (id INTEGER PRIMARY KEY , customer TEXT, date TEXT, store TEXT, manager TEXT, WWW TEXT, promised TEXT)");
-	var db1Rows = db1.execute("SELECT id, customer, date, store, manager, WWW, promised FROM opportunities");
+	db1.execute("CREATE TABLE IF NOT EXISTS opportunities (id INTEGER PRIMARY KEY , customer TEXT, date TEXT, store TEXT, manager TEXT, problem TEXT, promise TEXT)");
+	var db1Rows = db1.execute("SELECT id, customer, date, store, manager, problem, promise FROM opportunities");
 	while (db1Rows.isValidRow()){
 		tblOpportunities.push({
 			id: db1Rows.fieldByName("id"),
-			Customer: db1Rows.fieldByName("customer"),
-			DateCreated: db1Rows.fieldByName("date"),
+			customer: db1Rows.fieldByName("customer"),
+			date: db1Rows.fieldByName("date"),
 			store: db1Rows.fieldByName("store"),
-			PromisedBy: db1Rows.fieldByName("manager"),
-			Opportunity: db1Rows.fieldByName("WWW"),
-			Promise: db1Rows.fieldByName("promised")
+			manager: db1Rows.fieldByName("manager"),
+			problem: db1Rows.fieldByName("problem"),
+			promise: db1Rows.fieldByName("promise")
 		});
 		db1Rows.next();
 	}
@@ -29,26 +29,39 @@ var read = function(){
 };
 exports.read = read;
 
-var create = function (customer, problem, promised, date, manager, store){
+var create = function (p1, p2, p3, p4, p5, p6){
+	console.log(p1);
+	console.log(p2);
+	console.log(p3);
+	console.log(p4);
+	console.log(p5);
+	console.log(p6);
+	
 	var db1 = Ti.Database.open("infoDB");
-	db1.execute("CREATE TABLE IF NOT EXISTS opportunities (id INTEGER PRIMARY KEY , customer TEXT, date TEXT, store TEXT, manager TEXT, WWW TEXT, promised TEXTT)");
-	db1.execute("INSERT INTO opportunities (customer, WWW, promised, date, manager, store) VALUE (?, ?, ?, ?, ?, ?)", customer, problem, promised, date, manager, store);
+	db1.execute("CREATE TABLE IF NOT EXISTS opportunities (id INTEGER PRIMARY KEY , customer TEXT, date TEXT, store TEXT, manager TEXT, problem TEXT, promised TEXT)");
+	db1.execute("INSERT INTO opportunities (customer, date, store, manager, problem, promise) VALUES (?, ?, ?, ?, ?, ?)", p1, p2, p3, p4, p5, p6);
 	var rowID = db1.lastInsertRowId;
 	db1.close();
 	tblOpportunities = [];
+	read();
+	getNew.addRow(rowID);
 };
 exports.create = create;
 
-var update = function (){
-	console.log(getNew.customer);
-	console.log(getNew.problem);
-	console.log(getNew.promise);
-	console.log(getNew.rowID);
-	/*var db1 = Ti.Database.open("infoDB");
-	db1.execute("UPDATE opportunities SET customer=getNew.customer, WWW=getNew.problem, promised=getNew.promise WHERE id=getNew.rowID");
+var update = function (p1, p2, p3, p4, p5, p6, p7){
+	console.log("p1: "+p1);
+	console.log("p2: "+p2);
+	console.log("p3: "+p3);
+	console.log("p4: "+p4);
+	console.log("p5: "+p5);
+	console.log("p6: "+p6);
+	console.log("p7: "+p7);
+	
+	var db1 = Ti.Database.open("infoDB");
+	db1.execute("UPDATE opportunities SET customer=?, date=?, store=?, manager=?, problem=?, promise=? WHERE id=?", p1, p2, p3, p4, p5, p6, p7);
 	db1.close();
 	tblOpportunities = [];
-	read();*/
+	read();
 };
 exports.update = update;
 

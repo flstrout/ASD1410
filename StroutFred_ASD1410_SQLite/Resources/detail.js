@@ -3,7 +3,6 @@
 // SQLite
 // 10/12/2014
 var getDatabase = require("database");
-//var getUI = require("ui");
 
 var loadDetail = function(dataSource){
 	
@@ -12,12 +11,12 @@ var loadDetail = function(dataSource){
 		
 		// Change Popup Message - Not Yet Available
 		var saveSettings = function(){
-			/*var thisRowID = rowID;
+			var thisRowID = rowID;
 			getDatabase.del(thisRowID);
 			
 			detailWindow.close();
 			navWindow.close();
-			navWindow.open();*/
+			navWindow.open();
 			console.log(getDatabase.tblOpportunities);
 			
 		};
@@ -168,7 +167,9 @@ var loadDetail = function(dataSource){
 	});
 	
 	// Data
-	var rowID = dataSource.RowID;
+	var rowID = dataSource.id;
+	exports.rowID = rowID;
+	
 	var dataCustomer = Ti.UI.createLabel({
 		text: dataSource.title,
 		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
@@ -176,22 +177,25 @@ var loadDetail = function(dataSource){
 		top: lblCustomer.top + 16,
 		left: 8
 	});
+	exports.dataCustomer = dataCustomer;
 	
 	var dataDate = Ti.UI.createLabel({
-		text: dataSource.DateCreated,
+		text: dataSource.date,
 		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
 		color: "#ffcc00",
 		top: lblCustomer.top + 16,
 		left: 208
 	});
+	exports.dataDate = dataDate;
 	
 	var dataOpportunity = Ti.UI.createLabel({
-		text: dataSource.Opportunity,
+		text: dataSource.problem,
 		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
 		color: "#ffcc00",
 		top: lblOpportunity.top + 16,
 		left: 8
 	});
+	exports.dataOpportunity = dataOpportunity;
 	
 	// Highlighted the Promised Resolution
 	var customBackground = Ti.UI.createView({
@@ -207,7 +211,7 @@ var loadDetail = function(dataSource){
 	});
 	
 	var dataPromise = Ti.UI.createLabel({
-		text: dataSource.Promise,
+		text: dataSource.promise,
 		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
 		color: "#bf0c0c",
 		textAlign: "left",
@@ -218,9 +222,10 @@ var loadDetail = function(dataSource){
 		width: 300,
 		zIndex: 2
 	});
+	exports.dataPromise = dataPromise;
 	
 	var dataPromisedBy = Ti.UI.createLabel({
-		text: dataSource.PromisedBy,
+		text: dataSource.manager,
 		font: {fontSize: 18, fontFamily: "Helvetica Neue", fontWeight: "bold"},
 		color: "#ffcc00",
 		top: lblPromisedBy.top + 16,
@@ -260,6 +265,12 @@ var loadDetail = function(dataSource){
 		detailWindow.close();
 	});
 	
+	// Creates the Menu Bar Buttons
+	var butAdd = Ti.UI.createButton({
+		title: "Edit",
+		left: 15
+	});
+	
 	var tagline = Ti.UI.createLabel({
 		borderColor: "#333",
 		borderWidth: 2,
@@ -272,8 +283,9 @@ var loadDetail = function(dataSource){
 		width: "100%",
 		height: 22
 	});
-	
-	menuBar.add(titleMB);
+	var getUpdate = require("update");
+	menuBar.add(titleMB, butAdd);
+	butAdd.addEventListener("click", getUpdate.loadInput);
 	detailWindow.add(menuBar, lblCustomer, lblDate, lblOpportunity, lblPromise, lblPromisedBy, dataCustomer,
 					dataDate, dataOpportunity, dataPromise, dataPromisedBy, butMakeItRight, butCancel, customBackground, tagline);
 	navWindow.openWindow(detailWindow);
