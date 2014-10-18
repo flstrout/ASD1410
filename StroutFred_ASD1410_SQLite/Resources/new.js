@@ -12,13 +12,14 @@ var customer = "";
 var problem = "";
 var promise = "";
 
+// Make a current date stamp
 var todayDate = function(){
 	today = new Date();
-	var mm = today.getMonth()+1;  // +1 because January returns as zero, February returns as 1, etc, etc.
+	var mm = today.getMonth()+1;  // +1 Because January returns as zero, February returns as 1, etc, etc.
 	var dd = today.getDate();
 	var yyyy = today.getFullYear();
 	
-	// add a leading zero to months and days that have less than two digits
+	// Add a leading zero to months and days that have less than two digits
 	if(mm < 10) {
 	    mm= "0" + mm;
 	};
@@ -30,7 +31,9 @@ var todayDate = function(){
 	today = mm + "/" + dd + "/" + yyyy;
 };
 
-// Add a new record
+// An attempt to add a new record to the master list on the startup screen - thought I was close here, I just couldn't get it to work
+// I called this function at the end of the create query in the database.js file
+/*
 var addRow = function(id){
 	var newRow = Ti.UI.createTableViewRow({
 		id: id,
@@ -44,6 +47,7 @@ var addRow = function(id){
 	opportunities.appendRow(newRow);
 };	
 exports.addRow = addRow;
+*/
 
 var loadInput = function(e){
 	
@@ -58,13 +62,14 @@ var loadInput = function(e){
 			problem = txtOpportunity.value;
 			promise = txtPromise.value;
 			
+			// Call the Create Query and pass in the desired data
 			getDatabase.create(customer, today, store, manager, problem, promise);
+			/*
 			var temp = opportunities.data;
 			opportunities.setData(temp);
 			loadData.loadUI();
-		
+			*/
 		};
-		
 		
 		var closeSaveModal = function(){
 			addNewWindow.remove(tintView);
@@ -133,7 +138,6 @@ var loadInput = function(e){
 		});
 		
 		lblCancel.addEventListener("click", closeSaveModal);
-		
 		saveModal.add(lblSaveChanges, lblSaveDesc, lblSave, lblCancel);
 		addNewWindow.add(tintView, saveModal);
 		
@@ -260,7 +264,6 @@ var loadInput = function(e){
 		paddingRight: 10,
 		backgroundColor: "#eee"
 	});
-	
 	
 	// Form Buttons
 	var butSave = Ti.UI.createLabel({

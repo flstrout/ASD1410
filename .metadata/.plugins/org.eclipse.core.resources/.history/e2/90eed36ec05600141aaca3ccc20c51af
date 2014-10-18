@@ -67,6 +67,20 @@ var loadSettings = function(){
 			showSettings();
 		};
 		
+		// Save new settings
+		/*var saveSettings = function(){
+			Ti.App.Properties.setString("name", txtManager.value);
+			// manager = txtManager.value;
+			Ti.App.Properties.setString("position", txtPosition.value);
+			// position = txtPosition.value;
+			Ti.App.Properties.setString("store", txtHomeStore.value);
+			// homeStore = txtHomeStore.value;
+			Ti.App.Properties.setString("eid", textEID.value);
+			// eid = txtEID.value;
+			Ti.App.Properties.setString("password", txtPassword.value);
+			// password = txtPassword.value;
+			setWindow.close();
+		};*/
 	// Save Settings Popup Modal
 	var openSaveModal = function(){
 		

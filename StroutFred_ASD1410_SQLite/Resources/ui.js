@@ -3,7 +3,6 @@
 // SQLite
 // 10/12/2014
 
-
 var getSettings = require("settings");
 var getNew = require("new");
 var getDetail = require("detail");

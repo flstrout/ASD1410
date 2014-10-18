@@ -2,6 +2,7 @@
 // ASD-1410
 // SQLite
 // 10/12/2014
+
 var getDatabase = require("database");
 
 var loadDetail = function(dataSource){
@@ -13,12 +14,12 @@ var loadDetail = function(dataSource){
 		var saveSettings = function(){
 			var thisRowID = rowID;
 			getDatabase.del(thisRowID);
-			
 			detailWindow.close();
+			/*
 			navWindow.close();
 			navWindow.open();
-			console.log(getDatabase.tblOpportunities);
-			
+			*/
+			//console.log(getDatabase.tblOpportunities);	
 		};
 		
 		var closeSaveModal = function(){
@@ -92,7 +93,6 @@ var loadDetail = function(dataSource){
 		
 		saveModal.add(lblSaveChanges, lblSaveDesc, lblSave, lblCancel);
 		detailWindow.add(tintView, saveModal);
-		
 	};
 	
 	// Creates the Opportunty Detail Window
@@ -283,7 +283,9 @@ var loadDetail = function(dataSource){
 		width: "100%",
 		height: 22
 	});
-	var getUpdate = require("update");
+	
+	var getUpdate = require("update"); // Declared here because it creates a loop if it is declared globally
+	
 	menuBar.add(titleMB, butAdd);
 	butAdd.addEventListener("click", getUpdate.loadInput);
 	detailWindow.add(menuBar, lblCustomer, lblDate, lblOpportunity, lblPromise, lblPromisedBy, dataCustomer,

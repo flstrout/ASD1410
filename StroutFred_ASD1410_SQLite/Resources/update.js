@@ -26,19 +26,20 @@ var loadInput = function(){
 			promise = txtPromise.value;
 			
 			getDatabase.update(customer, today, store, manager, problem, promise, id);
-			/*var temp = opportunities.data;
+			// Following are a few of my attempts to update the master list on the first screen.
+			/*
+			var temp = opportunities.data;
 			opportunities.setData(temp);
-			loadData.loadUI();*/
-			/*console.log(id);
+			loadData.loadUI();
+			console.log(id);
 			console.log(today);
 			console.log(manager);
 			console.log(store);
 			console.log(customer);
 			console.log(problem);
-			console.log(promise);*/
-		
+			console.log(promise);
+			*/
 		};
-		
 		
 		var closeSaveModal = function(){
 			addNewWindow.remove(tintView);
@@ -110,7 +111,6 @@ var loadInput = function(){
 		
 		saveModal.add(lblSaveChanges, lblSaveDesc, lblSave, lblCancel);
 		addNewWindow.add(tintView, saveModal);
-		
 	};
 	
 	// Create the Window
