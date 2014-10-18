@@ -15,7 +15,6 @@ var loadDetail = function(dataSource){
 			var thisRowID = rowID;
 			getDatabase.del(thisRowID);
 			detailWindow.close();
-			// Another attempt to update the table view on the startup window
 			/*
 			navWindow.close();
 			navWindow.open();

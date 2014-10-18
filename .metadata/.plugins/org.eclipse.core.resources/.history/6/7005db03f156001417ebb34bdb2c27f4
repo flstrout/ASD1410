@@ -10,7 +10,6 @@ var getDatabase = require("database");
 
 var loadUI = function(){
 	
-	// Start the Read function and get the data back in an array to display it in a table view.
 	getDatabase.read();
 	var Opportunities = getDatabase.tblOpportunities;
 	
