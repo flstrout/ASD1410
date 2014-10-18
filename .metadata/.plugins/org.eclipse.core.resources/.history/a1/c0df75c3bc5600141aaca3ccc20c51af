@@ -68,7 +68,7 @@ var loadSettings = function(){
 		};
 		
 		// Save new settings
-		/*var saveSettings = function(){
+		var saveSettings = function(){
 			Ti.App.Properties.setString("name", txtManager.value);
 			// manager = txtManager.value;
 			Ti.App.Properties.setString("position", txtPosition.value);
@@ -80,22 +80,19 @@ var loadSettings = function(){
 			Ti.App.Properties.setString("password", txtPassword.value);
 			// password = txtPassword.value;
 			setWindow.close();
-		};*/
+		};
 	// Save Settings Popup Modal
 	var openSaveModal = function(){
 		
 		// Save the Current Values to the Global Variables
 		var saveSettings = function(){
-			Ti.App.Properties.setString("name", txtManager.value);
-			// manager = txtManager.value;
-			Ti.App.Properties.setString("position", txtPosition.value);
-			// position = txtPosition.value;
-			Ti.App.Properties.setString("store", txtHomeStore.value);
-			// homeStore = txtHomeStore.value;
-			Ti.App.Properties.setString("eid", txtEID.value);
-			// eid = txtEID.value;
-			Ti.App.Properties.setString("password", txtPassword.value);
-			// password = txtPassword.value;
+			manager = txtManager.value;
+			position = txtPosition.value;
+			homeStore = txtHomeStore.value;
+			eid = txtEID.value;
+			password = txtPassword.value;
+			settingsWindow.remove(tintView);
+			settingsWindow.remove(saveModal);
 			setWindow.close();
 		};
 		
