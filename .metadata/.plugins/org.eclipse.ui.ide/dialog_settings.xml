@@ -11,6 +11,9 @@
 		<item value="org.eclipse.platform:4.3.2.v20140221-1852"/>
 		<item value="org.eclipse.rcp:4.3.2.v20140221-1700"/>
 	</list>
+	<section name="org.eclipse.ui.internal.ide.dialogs.ProjectContentsLocationArea">
+		<item value="/Users/fredstrout/Documents/Full Sail" key="OUTSIDE_LOCATION"/>
+	</section>
 	<section name="CleanDialogSettings">
 		<item value="484" key="DIALOG_WIDTH"/>
 		<item value="182" key="DIALOG_Y_ORIGIN"/>

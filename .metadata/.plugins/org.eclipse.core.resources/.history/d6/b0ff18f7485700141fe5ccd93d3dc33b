@@ -1,0 +1,117 @@
+// Fred Strout
+// ASD-1410
+// SQLite
+// 10/12/2014
+
+var getSettings = require("settings");
+var getNew = require("new");
+var getDetail = require("detail");
+var getDatabase = require("database");
+
+var loadUI = function(){
+	
+	// Start the Read function and get the data back in an array to display it in a table view.
+	getDatabase.read();
+	var Opportunities = getDatabase.tblOpportunities;
+	
+	var list = [];
+	
+	 // Home Screen Table Header
+	var headView = Ti.UI.createView({ // Base View
+		backgroundColor: "#bf0c0c"
+	});
+	
+	var headLabel = Ti.UI.createLabel({ // Label applied to the Base View
+		text: "OPEN OPPORTUNITIES",
+		color: "#ffcc00",
+		font: {fontWeight: "bold"},
+		left: 5
+	});
+	
+	headView.add(headLabel);
+	
+	// Create Table
+	var opportunities = Ti.UI.createTableView({
+		top: 45,
+		style: Ti.UI.iPhone.TableViewStyle.GROUPED,
+		backgroundColor: "#bf0c0c",
+		separatorColor: "#bf0c0c"
+	});
+
+	var tableSection = Ti.UI.createTableViewSection({ // Set the Sections Header to the headView variable
+		headerView: headView
+	});
+	exports.tableSection = tableSection;
+	
+	// Send Variables outside the Loop so they won't get overwritten
+	list.push(tableSection);
+	console.log(JSON.parse(list));
+	// Populate the Sections with Data
+	for (o in Opportunities){ 
+		var sectionDetail = Ti.UI.createTableViewRow({
+			id: Opportunities[o].id,
+			title: Opportunities[o].customer,
+			date: Opportunities[o].date,
+			store: Opportunities[o].store,
+			problem: Opportunities[o].problem,
+			promise: Opportunities[o].promise,
+			manager: Opportunities[o].manager,
+			hasChild: true,
+			backgroundColor: "#eee"
+		});
+		
+		tableSection.add(sectionDetail);
+		//exports.sectionDetail = sectionDetail;
+	};
+
+	// Create Menu Bar
+	var menuBar = Ti.UI.createView({
+		backgroundColor: "#ffcc00",
+		borderColor: "#333",
+		borderWidth: 2,
+		top: 0,
+		height: 50
+	});
+	
+	var titleMB = Ti.UI.createLabel({
+		text: "Home",
+		font: {fontSize: 20, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+		color: "#333"
+	});
+	
+	// Creates the Menu Bar Buttons
+	var butAdd = Ti.UI.createButton({
+		title: "Add",
+		left: 15
+	});
+	
+	var butSettings = Ti.UI.createButton({
+		title: "Settings",
+		right: 15
+	});
+	
+	// Footer Tagline
+	var tagline = Ti.UI.createLabel({
+			borderColor: "#333",
+			borderWidth: 2,
+			backgroundColor: "#fc0",
+			font: {fontSize: 11, fontFamily: "Helvetica Neue", fontWeight: "bold"},
+			color: "#333",
+			text: "Be Clean - Be Nice - Be Fast - Get It Right! - Make It Right!!!",
+			textAlign: "center",
+			bottom: 10,
+			width: "100%",
+			height: 22
+		});
+	
+	menuBar.add(titleMB, butAdd, butSettings);
+	butAdd.addEventListener("click", getNew.loadInput);
+	butSettings.addEventListener("click", getSettings.loadSettings);
+	opportunities.setData(list);
+	opportunities.addEventListener("click", function(event){
+		getDetail.loadDetail(event.source);
+	});
+	tableWindow.add(opportunities, menuBar, tagline);
+	
+};
+exports.loadUI = loadUI;
