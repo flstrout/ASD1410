@@ -55,11 +55,33 @@ var labelLocal = Titanium.UI.createLabel({
 
 winLocal.add(labelLocal);
 
+var winFav = Titanium.UI.createWindow({  
+    title:'Favorites',
+    backgroundColor:'#fff'
+});
+var tabFav = Titanium.UI.createTab({  
+    icon:'dark_star.png',
+    title:'Favorites',
+    window:winFav
+});
+
+var labelFav = Titanium.UI.createLabel({
+	color:'#999',
+	top: 10,
+	text:'Favorites Window',
+	font:{fontSize:20,fontFamily:'Helvetica Neue'},
+	textAlign:'center',
+	width:'auto'
+});
+
+winFav.add(labelFav);
+
 //
 //  add tabs
 //
 tabGroup.addTab(tabRemote);  
-tabGroup.addTab(tabLocal);  
+tabGroup.addTab(tabLocal);
+tabGroup.addTab(tabFav);
 
 var getNet = require("network");
 getNet.netCheck();

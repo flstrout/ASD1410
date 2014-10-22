@@ -4,6 +4,7 @@
 // 10/22/2014
 
 var display = require("ui");
+var DB = require("database");
 
 // Wrap the whole package in a function for stronger execution control
 var netCheck = function(){
@@ -28,9 +29,9 @@ var netCheck = function(){
 			// Push the extracted data to the array
 			postArray.push(post);
 		};
-		
 		// console.log(postArray);
 		display.displayData(postArray);
+		DB.installData(postArray);
 	};
 	
 	// Create an alert box to display an error message for the onerror property of the createHTTPClient method
@@ -50,6 +51,7 @@ var netCheck = function(){
 	}else{ // If False, then
 		alert("Network not available. Check your settings.");
 	};
+	
 };
 
 exports.netCheck = netCheck;

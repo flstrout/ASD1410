@@ -1,0 +1,35 @@
+// Fred Strout
+// ASD 1410
+// CCandOOP
+// 10/22/2014
+
+
+var DBdata = function(dataInfo){
+	this.name = dataInfo.name;
+	this.author = dataInfo.author;
+};
+
+exports.Data = DBdata;
+
+Ti.Database.install("/database/local.sqlite", "localDB");
+
+var loadData = function (e){
+		var thisData = JSON.parse(this.responseText);
+		// console.log(thisData);
+		var posts = getNet.display.displayData;
+		var postArray = [];
+		
+		// Loop through the remote data to extract only the desired data and push that data to its own array
+		for(i=0, j=posts.length; i<j; i++){
+			var post = {
+				title: posts[i].data.title,
+				author: posts[i].data.author
+			};
+			
+			// Push the extracted data to the array
+			postArray.push(post);
+		};
+		
+		// console.log(postArray);
+		display.displayData(postArray);
+	};
