@@ -1,0 +1,58 @@
+// Fred Strout
+// ASD 1410
+// CC and OOP
+// 10/22/2014
+
+var tblDataInfo = [];
+
+var read = function(){
+	var db = Ti.Database.open('localDB');
+	db.execute("CREATE TABLE IF NOT EXISTS tblSaved (id INTEGER PRIMARY KEY , title TEXT, author TEXT, favorite TEXT)");
+	var dbRows = db1.execute("SELECT id, title, author, favorite FROM tblSaved");
+	while (dbRows.isValidRow()){
+		tblDataInfo.push({
+			id: dbRows.fieldByName("id"),
+			title: dbRows.fieldByName("title"),
+			author: dbRows.fieldByName("author"),
+			favorite: dbRows.fieldByName("favorite")
+		});
+		if (favorite === "Yes"){
+			tblDataInfo.backgroundColor = "#ff0";
+		};
+		dbRows.next();
+	}
+	dbRows.close();
+	db.close();
+};
+exports.read = read;
+
+var create = function(p1, p2, p3){
+	var db = Ti.Database.open('localDB');
+	db.execute("CREATE TABLE IF NOT EXISTS tblSaved (id INTEGER PRIMARY KEY , title TEXT, author TEXT, favorite TEXT)");
+	db.execute("INSERT INTO tblSaved (title, author, favorite) VALUES (?, ?, ?)", p1, p2, p3);
+	var rowID = db1.lastInsertRowId;
+	db.close();
+	tblDataInfo = [];
+	read();
+};
+exports.create = create;
+
+var update = function (p1, p2, p3){
+	var db = Ti.Database.open("localDB");
+	db.execute("UPDATE tblSaved SET title=?, author=?, favorite=? WHERE id=?", p1, p2, p3);
+	db.close();
+	tblDataInfo = [];
+	read();
+};
+exports.update = update;
+
+var del = function(id){
+	var db = Ti.Database.open("localDB");
+	db.execute("DELETE FROM tblSaved WHERE id=?", id);
+	db.close();
+	tblDataInfo = [];
+	read();
+};
+exports.del = del;
+
+exports.tblDataInfo = tblDataInfo;

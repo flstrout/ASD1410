@@ -1,0 +1,114 @@
+// Fred Strout
+// ASD 1410
+// CC and OOP
+// 10/22/2014
+
+var tblDataInfo = [];
+
+var buildUI = function(){
+	read();
+	// Allow the user to scroll through the data.
+	var scrollIt = Ti.UI.createScrollView({
+		layout: "vertical",
+		scrollType: "vertical",
+		contentWidth: "100%",
+		showVerticalScrollIndicator: true,
+		top: 15,
+		bottom: 15
+	});
+	
+	for (i=0, j=tblDataInfo.length; i<j; i++){
+		
+		// Create a Label object to display the title data retrieved from the remote source
+		var titleLabel = Ti.UI.createLabel({
+			text: tblDataInfo[i].title,
+			color: "#000",
+			font: {fontSize: 16, fontStyle: "Helvitica Neue"},
+			top: 8,
+			left: 7,
+			right: 7
+		});
+		
+		// Create an Image View object to display the picture data retrieved from the remote source
+		var authorLabel = Ti.UI.createLabel ({
+			text: tblDataInfo[i].author,
+			color: "#000",
+			font: {fontSize: 12, fontStyle: "Helvitica Neue"},
+			top: 1,
+			left: 12,
+			right: 7
+		});
+		
+		// Create an Image View object to display the picture data retrieved from the remote source
+		var favoriteLabel = Ti.UI.createLabel ({
+			text: tblDataInfo[i].favorite,
+			color: "#000",
+			font: {fontSize: 12, fontStyle: "Helvitica Neue"},
+			top: 1,
+			left: 12,
+			right: 7
+		});
+		
+		
+		var line = Ti.UI.createView({
+			backgroundColor: "#000",
+			top: 2, left: 3, right: 3,
+			height: 1
+		});
+		// Add the displayData objects to the Scroll View
+		scrollIt.add(titleLabel, authorLabel, favoriteLabel, line);
+	};
+	winFav.add(scrollIt);
+};
+exports.buildUI = buildUI;
+
+var read = function(){
+	var db = Ti.Database.open('localDB');
+	db.execute("CREATE TABLE IF NOT EXISTS tblSaved (id INTEGER PRIMARY KEY , title TEXT, author TEXT, favorite TEXT)");
+	var dbRows = db.execute("SELECT id, title, author, favorite FROM tblSaved");
+	while (dbRows.isValidRow()){
+		tblDataInfo.push({
+			id: dbRows.fieldByName("id"),
+			title: dbRows.fieldByName("title"),
+			author: dbRows.fieldByName("author"),
+			favorite: dbRows.fieldByName("favorite")
+		});
+		
+		dbRows.next();
+	}
+	dbRows.close();
+	db.close();
+};
+exports.read = read;
+
+var create = function(p1, p2, p3){
+	var db = Ti.Database.open('localDB');
+	db.execute("CREATE TABLE IF NOT EXISTS tblSaved (id INTEGER PRIMARY KEY , title TEXT, author TEXT, favorite TEXT)");
+	db.execute("INSERT INTO tblSaved (title, author, favorite) VALUES (?, ?, ?)", p1, p2, p3);
+	var rowID = db.lastInsertRowId;
+	db.close();
+	tblDataInfo = [];
+	read();
+	alert("Data Updated!");
+};
+exports.create = create;
+
+var update = function (p1, p2, p3){
+	var db = Ti.Database.open("localDB");
+	db.execute("UPDATE tblSaved SET title=?, author=?, favorite=? WHERE id=?", p1, p2, p3);
+	db.close();
+	tblDataInfo = [];
+	read();
+};
+exports.update = update;
+
+var del = function(id){
+	var db = Ti.Database.open("localDB");
+	db.execute("DELETE FROM tblSaved WHERE id=?", id);
+	db.close();
+	tblDataInfo = [];
+	read();
+};
+exports.del = del;
+
+exports.tblDataInfo = tblDataInfo;
