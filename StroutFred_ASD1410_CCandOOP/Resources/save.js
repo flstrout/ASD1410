@@ -33,31 +33,46 @@ var buildUI = function(){
 		});
 		
 		titleLabel.addEventListener("click", function(e){
-			var dialog = Ti.UI.createAlertDialog({
-				cancel: 2,
-				title: "Edit Data"
-			});
-			console.log(e.source.favorite);
-			if (e.source.favorite = "No"){
+			if (e.source.favorite === "No"){
+				var dialog = Ti.UI.createAlertDialog({
+					cancel: 2,
+					title: "Edit Data"
+				});
+				console.log(e.source.favorite);
+				
 				dialog.buttonNames = ["Favorite", "Delete", "Cancel"];
-			};
-			if (e.source.favorite = "Yes"){
+				
+				dialog.addEventListener("click", function(event){
+					if (event.index === 0){
+							update(e.source.text, e.source.author, "Yes", e.source.id);
+						
+					};
+					if (event.index === 1){
+						console.log(e.source.id);
+						del(e.source.id);
+					};
+				});
+			}else{
+			
+				var dialog = Ti.UI.createAlertDialog({
+					cancel: 2,
+					title: "Edit Data"
+				});
+				console.log(e.source.favorite);
+				
 				dialog.buttonNames = ["Un-Fav", "Delete", "Cancel"];
+				
+				dialog.addEventListener("click", function(event){
+					if (event.index === 0){
+							update(e.source.text, e.source.author, "No", e.source.id);
+						
+					};
+					if (event.index === 1){
+						console.log(e.source.id);
+						del(e.source.id);
+					};
+				});
 			};
-			dialog.addEventListener("click", function(event){
-				if (event.index === 0){
-					if(e.source.favorite = "No"){
-						update(e.source.text, e.source.author, "Yes", e.source.id);
-					};
-					if(e.source.favorite = "Yes"){
-						update(e.source.text, e.source.author, "No", e.source.id);
-					};
-				};
-				if (event.index === 1){
-					console.log(e.source.id);
-					del(e.source.id);
-				};
-			});
 			dialog.show();
 		});
 		
